@@ -71,7 +71,7 @@ export const HeroSection = (): JSX.Element => {
               <img
                 className="w-[13.5px] h-[18px] mr-2"
                 alt="Frame"
-                src="/frame-39.svg"
+                src="/assets/frame-39.svg"
               />
               Teste Agora
             </Button>
@@ -100,7 +100,7 @@ export const HeroSection = (): JSX.Element => {
               <div className="flex items-center">
                 <Avatar className="w-12 h-12 shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a]">
                   <img
-                    src="..//div.png"
+                    src="/assets/div.png"
                     alt="Doctor profile"
                     className="w-full h-full object-cover rounded-full"
                   />
@@ -118,7 +118,7 @@ export const HeroSection = (): JSX.Element => {
                 <img
                   className="w-[17.5px] h-5"
                   alt="Frame"
-                  src="/frame-21.svg"
+                  src="/assets/frame-21.svg"
                 />
               </div>
             </div>
@@ -153,7 +153,7 @@ export const HeroSection = (): JSX.Element => {
                         <img
                           className="w-[15px] h-3"
                           alt="Frame"
-                          src="/frame-47.svg"
+                          src="/assets/frame-47.svg"
                         />
                         <span className="ml-1 [font-family:'Outfit',Helvetica] font-normal text-gray-500 text-xs">
                           Áudio enviado
@@ -171,7 +171,7 @@ export const HeroSection = (): JSX.Element => {
                 <img
                   className="w-[15.75px] h-[18px] mr-2"
                   alt="Frame"
-                  src="/frame-55.svg"
+                  src="/assets/frame-55.svg"
                 />
                 <div className="relative flex-1 bg-gray-100 rounded-full">
                   <Input
@@ -182,16 +182,16 @@ export const HeroSection = (): JSX.Element => {
                     <img
                       className="w-3.5 h-4"
                       alt="Frame"
-                      src="/frame-40.svg"
+                      src="/assets/frame-40.svg"
                     />
-                    <img className="w-4 h-4" alt="Frame" src="/frame-54.svg" />
+                    <img className="w-4 h-4" alt="Frame" src="/assets/frame-54.svg" />
                   </div>
                 </div>
                 <div className="ml-3 w-[30px] h-11 bg-[#25d366] rounded-full flex items-center justify-center">
                   <img
                     className="w-[13.5px] h-[18px]"
                     alt="Frame"
-                    src="/frame-49.svg"
+                    src="/assets/frame-49.svg"
                   />
                 </div>
               </div>

@@ -7,7 +7,7 @@ export const TestimonialsSection = (): JSX.Element => {
     {
       id: 1,
       title: "Conforme LGPD (Brasil)",
-      icon: "/frame-17.svg",
+      icon: "/assets/frame-17.svg",
     },
     {
       id: 2,
@@ -17,22 +17,22 @@ export const TestimonialsSection = (): JSX.Element => {
     {
       id: 3,
       title: "Compatível com HIPAA (EUA)",
-      icon: "/frame-13.svg",
+      icon: "/assets/frame-13.svg",
     },
     {
       id: 4,
       title: "Servidores seguros no Brasil",
-      icon: "/frame-22.svg",
+      icon: "/assets/frame-22.svg",
     },
     {
       id: 5,
       title: "Compatível com GDPR (Europa)",
-      icon: "/lucide-globe-lock.svg",
+      icon: "/assets/lucide-globe-lock.svg",
     },
     {
       id: 6,
       title: "Infraestrutura validada por especialistas",
-      icon: "/frame-23.svg",
+      icon: "/assets/frame-23.svg",
     },
   ];
 
@@ -64,7 +64,7 @@ export const TestimonialsSection = (): JSX.Element => {
                     <img
                       className="w-6 h-6"
                       alt="GlobeIcon LockIcon Icon"
-                      src="/lucide-globe-lock.svg"
+                      src="/assets/lucide-globe-lock.svg"
                     />
                   ) : null}
                   <div className="ml-3 font-['Poppins',Helvetica] font-medium text-gray-800 text-base">
@@ -83,7 +83,7 @@ export const TestimonialsSection = (): JSX.Element => {
                 <img
                   className="w-[60px] h-[60px]"
                   alt="Security Icon"
-                  src="/frame-7.svg"
+                  src="/assets/frame-7.svg"
                 />
               </div>
 
@@ -92,7 +92,7 @@ export const TestimonialsSection = (): JSX.Element => {
                   <img
                     className="w-[17.5px] h-5"
                     alt="Check Icon"
-                    src="/frame-1.svg"
+                    src="/assets/frame-1.svg"
                   />
                 </div>
               </div>

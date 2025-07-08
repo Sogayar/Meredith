@@ -28,7 +28,7 @@ export const Principal = (): JSX.Element => {
         <div className="max-w-[1280px] h-full mx-auto px-8 flex items-center justify-between">
           <div className="flex items-center">
             <div className="relative h-[50px] flex items-center">
-              <img className="w-[50px] h-[50px]" alt="Logo" src="/logo.svg" />
+              <img className="w-[50px] h-[50px]" alt="Logo" src="/assets/logo.svg" />
               <div className="ml-3 font-medium text-black text-2xl [font-family:'Poppins',Helvetica]">
                 Meredith
               </div>

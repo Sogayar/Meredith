@@ -10,7 +10,7 @@ export const ContactSection = (): JSX.Element => {
       title: "Como a Automação Está Revolucionando Clínicas de Saúde",
       description:
         "Descubra como a automação inteligente está transformando a experiência do paciente e a eficiência operacional em clínicas de saúde.",
-      image: "..//img.png",
+      image: "/assets/img.png",
     },
     {
       id: 2,
@@ -18,7 +18,7 @@ export const ContactSection = (): JSX.Element => {
       title: "5 Estratégias para Reduzir Faltas em Consultas Médicas",
       description:
         "Implementando lembretes eficientes e estratégias de comunicação para minimizar cancelamentos de última hora e não comparecimentos.",
-      image: "..//img-1.png",
+      image: "/assets/img-1.png",
     },
     {
       id: 3,
@@ -26,7 +26,7 @@ export const ContactSection = (): JSX.Element => {
       title: "LGPD na Saúde: O Que Sua Clínica Precisa Saber",
       description:
         "Um guia completo sobre conformidade com a Lei Geral de Proteção de Dados para instituições de saúde no Brasil.",
-      image: "..//img-2.png",
+      image: "/assets/img-2.png",
     },
   ];
 

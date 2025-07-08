@@ -5,7 +5,7 @@ import { Card, CardContent } from "../../../../components/ui/card";
 // Service data for mapping
 const services = [
   {
-    icon: "/frame-27.svg",
+    icon: "/assets/frame-27.svg",
     title: "Comunicação Multicanal",
     description:
       "Integração com WhatsApp, Instagram, Facebook, e-mail e outros canais para comunicação eficiente com seus pacientes.",
@@ -16,7 +16,7 @@ const services = [
     ],
   },
   {
-    icon: "/frame-21.svg",
+    icon: "/assets/frame-21.svg",
     title: "Agendamento Inteligente",
     description:
       "Automatize o processo de agendamento, remarcação e cancelamento de consultas com confirmação automática.",
@@ -27,7 +27,7 @@ const services = [
     ],
   },
   {
-    icon: "/frame-26.svg",
+    icon: "/assets/frame-26.svg",
     title: "Acompanhamento Pós-Consulta",
     description:
       "Mantenha contato com seus pacientes após as consultas, garantindo melhor adesão aos tratamentos.",
@@ -38,7 +38,7 @@ const services = [
     ],
   },
   {
-    icon: "/frame-24.svg",
+    icon: "/assets/frame-24.svg",
     title: "Pesquisas e Feedback",
     description:
       "Colete feedback dos pacientes para melhorar continuamente seus serviços e atendimento.",
@@ -49,7 +49,7 @@ const services = [
     ],
   },
   {
-    icon: "/frame-79.svg",
+    icon: "/assets/frame-79.svg",
     title: "Gestão de Retornos",
     description:
       "Automatize lembretes para consultas de retorno e renovação de procedimentos periódicos.",
@@ -60,7 +60,7 @@ const services = [
     ],
   },
   {
-    icon: "/frame-17.svg",
+    icon: "/assets/frame-17.svg",
     title: "Conformidade e Segurança",
     description:
       "Garanta que todas as comunicações estejam em conformidade com as regulamentações de saúde e proteção de dados.",
