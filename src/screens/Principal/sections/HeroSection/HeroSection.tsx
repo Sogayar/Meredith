@@ -92,10 +92,10 @@ export const HeroSection = (): JSX.Element => {
         </div>
 
         {/* Chat Card */}
-        <Card className="absolute w-[320px] lg:w-[584px] h-[400px] lg:h-[456px] top-4 lg:top-0 right-4 lg:right-0 rounded-2xl shadow-[0px_25px_50px_#00000040] overflow-hidden">
+        <Card className="absolute w-[320px] lg:w-[584px] h-[400px] lg:h-[456px] top-4 lg:top-16 right-4 lg:right-0 rounded-2xl shadow-[0px_25px_50px_#00000040] overflow-hidden bg-white">
           <CardContent className="p-0">
             {/* Chat Header */}
-            <div className="flex items-center justify-between p-4 lg:p-6 border-b">
+            <div className="flex items-center justify-between p-4 lg:p-6 border-b bg-white">
               <div className="flex items-center">
                 <Avatar className="w-10 lg:w-12 h-10 lg:h-12 shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a]">
                   <img
@@ -180,7 +180,7 @@ export const HeroSection = (): JSX.Element => {
             </div>
 
             {/* Chat Input */}
-            <div className="flex items-center p-2 lg:p-3 border-t bg-[#f0f0f0]">
+            <div className="flex items-center p-2 lg:p-3 border-t bg-[#f0f0f0] relative">
               <div className="flex items-center w-full">
                 <button className="p-2 hover:bg-gray-200 rounded-full transition-colors">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
