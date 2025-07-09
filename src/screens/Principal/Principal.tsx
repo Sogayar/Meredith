@@ -14,12 +14,11 @@ export const Principal = (): JSX.Element => {
   // Navigation items data
   const navigationItems = [
     { label: "Início", href: "#" },
-    { label: "Sobre", href: "#" },
-    { label: "Serviços", href: "#" },
-    { label: "Preços", href: "#" },
-    { label: "Depoimentos", href: "#" },
-    { label: "Blog", href: "#" },
-    { label: "Contato", href: "#" },
+    { label: "Sobre", href: "#sobre-nos" },
+    { label: "Como Funciona", href: "#nossos-servicos" },
+    { label: "Planos", href: "#nossos-planos" },
+    { label: "Clientes", href: "#depoimentos" },
+    { label: "Blog", href: "#blog" },
   ];
 
   return (
@@ -48,7 +47,7 @@ export const Principal = (): JSX.Element => {
           </nav>
 
           <Button className="h-8 lg:h-10 px-3 lg:px-4 bg-[#0080df] text-white font-medium text-sm lg:text-base [font-family:'Poppins',Helvetica]">
-            Teste Grátis
+            <a href="#teste-agora">Teste Agora</a>
           </Button>
         </div>
       </header>

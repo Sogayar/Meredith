@@ -131,7 +131,7 @@ export const FeaturesSection = (): JSX.Element => {
     <section className="container mx-auto py-16 px-4">
       {/* Section Header */}
       <div className="flex flex-col items-center mb-16">
-        <h2 className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] text-center leading-9">
+        <h2 id="nossos-planos" className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] text-center leading-9 scroll-mt-[120px]">
           Nossos Planos
         </h2>
         <div className="w-20 h-1 bg-[#27a987] my-4"></div>

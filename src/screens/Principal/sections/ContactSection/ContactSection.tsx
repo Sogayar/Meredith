@@ -34,7 +34,7 @@ export const ContactSection = (): JSX.Element => {
     <section className="w-full max-w-[1280px] mx-auto py-16">
       {/* Section Header */}
       <div className="flex flex-col items-center mb-16">
-        <h2 className="font-bold text-3xl text-gray-800 text-center font-['Poppins',Helvetica] leading-9">
+        <h2 id="blog" className="font-bold text-3xl text-gray-800 text-center font-['Poppins',Helvetica] leading-9 scroll-mt-[120px]">
           Blog e Recursos
         </h2>
         <div className="w-20 h-1 my-4 bg-[#27a987]" />

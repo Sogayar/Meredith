@@ -63,7 +63,7 @@ export const CallToActionSection = (): JSX.Element => {
     <section className="w-full py-16 bg-white">
       <div className="container max-w-7xl mx-auto px-4">
         <div className="flex flex-col items-center mb-12">
-          <h2 className="font-bold text-3xl text-gray-800 text-center font-['Poppins',Helvetica] mb-3">
+          <h2 id="depoimentos" className="font-bold text-3xl text-gray-800 text-center font-['Poppins',Helvetica] mb-3 scroll-mt-[120px]">
             O Que Dizem Nossos Clientes
           </h2>
           <div className="w-20 h-1 bg-[#27a987] mb-6" />

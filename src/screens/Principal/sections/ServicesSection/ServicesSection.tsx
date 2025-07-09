@@ -75,7 +75,7 @@ const services = [
 export const ServicesSection = (): JSX.Element => {
   return (
     <section className="w-full py-16 bg-white">
-      <div className="container mx-auto px-4">
+      <div id="nossos-servicos" className="container mx-auto px-4 scroll-mt-[120px]">
         <div className="flex flex-col items-center mb-16">
           <h2 className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] mb-3">
             Nossos Serviços
