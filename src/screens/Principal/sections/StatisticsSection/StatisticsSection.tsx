@@ -42,8 +42,8 @@ export const StatisticsSection = (): JSX.Element => {
   return (
     <section className="relative w-full bg-gray-50 py-24">
       {/* Statistics Cards */}
-      <div className="relative w-full max-w-7xl mx-auto -mt-24 lg:-mt-36 px-4">
-        <div className="bg-white p-8 lg:p-12 rounded-lg shadow-lg">
+      <div className="relative w-full -mt-24 lg:-mt-36">
+        <div className="bg-white p-8 lg:p-12 rounded-lg shadow-lg px-4">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {statistics.map((stat, index) => (
               <div key={index} className="flex flex-col items-center">
@@ -60,7 +60,7 @@ export const StatisticsSection = (): JSX.Element => {
       </div>
 
       {/* About Us Section */}
-      <div className="max-w-7xl mx-auto mt-16 px-4">
+      <div id="sobre-nos" className="max-w-7xl mx-auto mt-16 px-4 scroll-mt-[120px]">
         <div className="flex flex-col items-center mb-16">
           <h2 className="font-bold text-2xl lg:text-3xl text-gray-800 text-center font-['Poppins',Helvetica] leading-9">
             Sobre Nós
