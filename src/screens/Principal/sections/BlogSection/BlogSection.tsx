@@ -10,18 +10,19 @@ export const BlogSection = (): JSX.Element => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
+  const [phoneValid, setPhoneValid] = useState(true); // New state for phone validation
   const [clinicName, setClinicName] = useState('');
   const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (fullName && email && phone && clinicName && termsAccepted) {
+    if (fullName && email && phone && clinicName && termsAccepted && phoneValid) {
       // In a real application, you would handle form submission here (e.g., send data to a server)
       console.log('Form Submitted:', { fullName, email, phone, clinicName, termsAccepted });
       setFormSubmitted(true);
     } else {
-      alert('Por favor, preencha todos os campos e aceite os termos de privacidade.');
+      alert('Por favor, preencha todos os campos, insira um telefone válido e aceite os termos de privacidade.');
     }
   };
 
@@ -106,15 +107,25 @@ export const BlogSection = (): JSX.Element => {
                   </label>
                   <Input
                     id={field.id}
-                    className="w-full h-[42px] rounded-lg border border-gray-300"
+                    className={`w-full h-[42px] rounded-lg border ${field.id === 'phone' && !phoneValid ? 'border-red-500' : 'border-gray-300'}`}
                     value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : field.id === 'phone' ? phone : clinicName}
                     onChange={(e) => {
                       if (field.id === 'fullName') setFullName(e.target.value);
                       else if (field.id === 'email') setEmail(e.target.value);
-                      else if (field.id === 'phone') setPhone(e.target.value);
+                      else if (field.id === 'phone') {
+                        const value = e.target.value;
+                        setPhone(value);
+                        // Basic phone number validation (e.g., (XX) XXXXX-XXXX or (XX) XXXX-XXXX)
+                        const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+                        setPhoneValid(phoneRegex.test(value));
+                      }
                       else if (field.id === 'clinicName') setClinicName(e.target.value);
                     }}
+                    placeholder={field.id === 'phone' ? '(XX) XXXXX-XXXX' : ''}
                   />
+                  {field.id === 'phone' && !phoneValid && phone !== '' && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira um número de telefone válido no formato (XX) XXXXX-XXXX.</p>
+                  )}
                 </div>
               ))}
 
