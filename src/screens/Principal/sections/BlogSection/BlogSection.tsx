@@ -28,10 +28,10 @@ export const BlogSection = (): JSX.Element => {
 
   // Form field labels
   const formFields = [
-    { id: "fullName", label: "Nome completo" },
-    { id: "email", label: "Email" },
-    { id: "phone", label: "Telefone" },
-    { id: "clinicName", label: "Nome da clínica" },
+    { id: "fullName", label: "Nome completo", placeholder: "Seu nome completo" },
+    { id: "email", label: "Email", placeholder: "seu.email@example.com" },
+    { id: "phone", label: "Telefone", placeholder: "(XX) XXXXX-XXXX" },
+    { id: "clinicName", label: "Nome da clínica", placeholder: "Nome da sua clínica" },
   ];
 
   // Chat messages data
@@ -121,7 +121,7 @@ export const BlogSection = (): JSX.Element => {
                       }
                       else if (field.id === 'clinicName') setClinicName(e.target.value);
                     }}
-                    placeholder={field.id === 'phone' ? '(XX) XXXXX-XXXX' : ''}
+                    placeholder={field.placeholder}
                   />
                   {field.id === 'phone' && !phoneValid && phone !== '' && (
                     <p className="text-red-500 text-sm mt-1">Por favor, insira um número de telefone válido no formato (XX) XXXXX-XXXX.</p>
