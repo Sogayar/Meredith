@@ -30,7 +30,7 @@ export const BlogSection = (): JSX.Element => {
   const formFields = [
     { id: "fullName", label: "Nome completo", placeholder: "Seu nome completo" },
     { id: "email", label: "Email", placeholder: "Seu melhor email" },
-    { id: "phone", label: "Telefone", placeholder: "(XX) XXXXX-XXXX" },
+    { id: "phone", label: "Telefone", placeholder: "(00) 00000-0000" },
     { id: "clinicName", label: "Nome da clínica", placeholder: "Nome da sua clínica" },
   ];
 
