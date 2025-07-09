@@ -29,7 +29,7 @@ export const BlogSection = (): JSX.Element => {
   // Form field labels
   const formFields = [
     { id: "fullName", label: "Nome completo", placeholder: "Seu nome completo" },
-    { id: "email", label: "Email", placeholder: "seu.email@example.com" },
+    { id: "email", label: "Email", placeholder: "Seu melhor email" },
     { id: "phone", label: "Telefone", placeholder: "(XX) XXXXX-XXXX" },
     { id: "clinicName", label: "Nome da clínica", placeholder: "Nome da sua clínica" },
   ];
