@@ -95,7 +95,7 @@ export const BlogSection = (): JSX.Element => {
               demonstração.
             </p>
 
-            <div className="space-y-10 mt-8">
+            <div className="space-y-14 mt-8">
               <form onSubmit={handleSubmit}>
               {formFields.map((field) => (
                 <div key={field.id} className="space-y-2">
