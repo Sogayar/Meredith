@@ -193,7 +193,7 @@ export const BlogSection = (): JSX.Element => {
                 </div>
 
                 {/* Chat input */}
-                <div className="p-6 pt-4 border-t">
+                <div className="p-6 pt-4 pb-2 border-t">
                   <div className="flex">
                     <Input
                       className="rounded-r-none h-12 border-gray-300 font-['Poppins',Helvetica] text-base"
