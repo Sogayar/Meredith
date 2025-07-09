@@ -102,8 +102,8 @@ export const CallToActionSection = (): JSX.Element => {
                     </p>
                     <p className="text-gray-500 text-sm font-['Poppins',Helvetica]">
                       {testimonial.clinic}
-                    ? "/assets/star-half.svg"
-                    : "/assets/star-full.svg"
+                    </p>
+                  </div>
                 </div>
               </CardContent>
             </Card>
