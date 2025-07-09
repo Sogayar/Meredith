@@ -1,5 +1,6 @@
 import { SendIcon } from "lucide-react";
 import React, { useState } from "react";
+import InputMask from 'react-input-mask';
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Checkbox } from "../../../../components/ui/checkbox";
@@ -8,21 +9,62 @@ import { Input } from "../../../../components/ui/input";
 export const BlogSection = (): JSX.Element => {
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [fullName, setFullName] = useState('');
+  const [fullNameError, setFullNameError] = useState(false);
   const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
   const [phone, setPhone] = useState('');
-  const [phoneValid, setPhoneValid] = useState(true); // New state for phone validation
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [phoneError, setPhoneError] = useState(false);
   const [clinicName, setClinicName] = useState('');
+  const [clinicNameError, setClinicNameError] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (fullName && email && phone && clinicName && termsAccepted && phoneValid) {
-      // In a real application, you would handle form submission here (e.g., send data to a server)
+    let isValid = true;
+
+    if (!fullName) {
+      setFullNameError(true);
+      isValid = false;
+    } else {
+      setFullNameError(false);
+    }
+
+    if (!email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) { // More robust email regex
+      setEmailError(true);
+      isValid = false;
+    } else {
+      setEmailError(false);
+    }
+
+    if (!phone || !/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(phone)) {
+      setPhoneError(true);
+      isValid = false;
+    } else {
+      setPhoneError(false);
+    }
+
+    if (!clinicName) {
+      setClinicNameError(true);
+      isValid = false;
+    } else {
+      setClinicNameError(false);
+    }
+
+    if (!termsAccepted) {
+      setTermsError(true);
+      isValid = false;
+    } else {
+      setTermsError(false);
+    }
+
+    if (isValid) {
       console.log('Form Submitted:', { fullName, email, phone, clinicName, termsAccepted });
       setFormSubmitted(true);
     } else {
-      alert('Por favor, preencha todos os campos, insira um telefone válido e aceite os termos de privacidade.');
+      alert('Por favor, preencha todos os campos corretamente.');
     }
   };
 
@@ -105,26 +147,50 @@ export const BlogSection = (): JSX.Element => {
                   >
                     {field.label}
                   </label>
-                  <Input
-                    id={field.id}
-                    className={`w-full h-[42px] rounded-lg border ${field.id === 'phone' && !phoneValid ? 'border-red-500' : 'border-gray-300'}`}
-                    value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : field.id === 'phone' ? phone : clinicName}
-                    onChange={(e) => {
-                      if (field.id === 'fullName') setFullName(e.target.value);
-                      else if (field.id === 'email') setEmail(e.target.value);
-                      else if (field.id === 'phone') {
+                  {field.id === 'phone' ? (
+                    <InputMask
+                      mask="(99) 99999-9999"
+                      value={phone}
+                      onChange={(e) => {
                         const value = e.target.value;
                         setPhone(value);
-                        // Basic phone number validation (e.g., (XX) XXXXX-XXXX or (XX) XXXX-XXXX)
                         const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
                         setPhoneValid(phoneRegex.test(value));
-                      }
-                      else if (field.id === 'clinicName') setClinicName(e.target.value);
-                    }}
-                    placeholder={field.placeholder}
-                  />
-                  {field.id === 'phone' && !phoneValid && phone !== '' && (
-                    <p className="text-red-500 text-sm mt-1">Por favor, insira um número de telefone válido no formato (XX) XXXXX-XXXX.</p>
+                      }}
+                    >
+                      {(inputProps: any) => (
+                        <Input
+                          {...inputProps}
+                          id={field.id}
+                          className={`w-full h-[42px] rounded-lg border ${phoneError ? 'border-red-500' : 'border-gray-300'}`}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    </InputMask>
+                  ) : (
+                    <Input
+                      id={field.id}
+                      className={`w-full h-[42px] rounded-lg border ${field.id === 'fullName' && fullNameError ? 'border-red-500' : field.id === 'email' && emailError ? 'border-red-500' : field.id === 'clinicName' && clinicNameError ? 'border-red-500' : 'border-gray-300'}`}
+                      value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : clinicName}
+                      onChange={(e) => {
+                        if (field.id === 'fullName') setFullName(e.target.value);
+                        else if (field.id === 'email') setEmail(e.target.value);
+                        else if (field.id === 'clinicName') setClinicName(e.target.value);
+                      }}
+                      placeholder={field.placeholder}
+                    />
+                  )}
+                  {field.id === 'fullName' && fullNameError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira seu nome completo.</p>
+                  )}
+                  {field.id === 'email' && emailError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira um email válido.</p>
+                  )}
+                  {field.id === 'phone' && phoneError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira um número de telefone válido.</p>
+                  )}
+                  {field.id === 'clinicName' && clinicNameError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira o nome da sua clínica.</p>
                   )}
                 </div>
               ))}
@@ -132,14 +198,14 @@ export const BlogSection = (): JSX.Element => {
               <div className="flex items-start space-x-3 mt-8">
                 <Checkbox
                   id="terms"
-                  className="mt-1 border-black border-[0.5px] rounded-[1px]"
+                  className={`mt-1 border-black border-[0.5px] rounded-[1px] ${termsError ? 'border-red-500' : ''}`}
                   checked={termsAccepted}
                   onCheckedChange={setTermsAccepted}
                 />
                 <div className="space-y-1">
                   <label
                     htmlFor="terms"
-                    className="text-sm text-gray-600 font-['Poppins',Helvetica]"
+                    className={`text-sm font-['Poppins',Helvetica] ${termsError ? 'text-red-500' : 'text-gray-600'}`}
                   >
                     Concordo que meus dados sejam usados para fins de marketing,
                     conforme a{" "}
@@ -148,7 +214,9 @@ export const BlogSection = (): JSX.Element => {
                     </span>
                     .
                   </label>
-                </div>
+                  {termsError && (
+                    <p className="text-red-500 text-sm mt-1">Você deve aceitar os termos de privacidade.</p>
+                  )}
               </div>
 
               <Button className="w-full h-12 bg-[#0080df] hover:bg-[#0070c5] rounded-lg font-medium text-base font-['Poppins',Helvetica]">
