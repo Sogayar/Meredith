@@ -196,11 +196,11 @@ export const BlogSection = (): JSX.Element => {
                 <div className="p-6 pt-4 border-t">
                   <div className="flex">
                     <Input
-                      className="rounded-r-none h-[42px] border-gray-300 font-['Poppins',Helvetica] text-base"
+                      className="rounded-r-none h-12 border-gray-300 font-['Poppins',Helvetica] text-base"
                       placeholder="Digite sua mensagem..."
                       disabled={!formSubmitted}
                     />
-                    <Button className="h-[42px] w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]" disabled={!formSubmitted}>
+                    <Button className="h-12 w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]" disabled={!formSubmitted}>
                       <SendIcon className="h-4 w-4" />
                     </Button>
                   </div>
