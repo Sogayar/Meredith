@@ -95,7 +95,7 @@ export const BlogSection = (): JSX.Element => {
               demonstração.
             </p>
 
-            <div className="space-y-14 mt-8">
+            <div className="space-y-12 mt-8">
               <form onSubmit={handleSubmit}>
               {formFields.map((field) => (
                 <div key={field.id} className="space-y-2">
@@ -129,7 +129,7 @@ export const BlogSection = (): JSX.Element => {
                 </div>
               ))}
 
-              <div className="flex items-start space-x-3">
+              <div className="flex items-start space-x-3 mt-8">
                 <Checkbox
                   id="terms"
                   className="mt-1 border-black border-[0.5px] rounded-[1px]"
