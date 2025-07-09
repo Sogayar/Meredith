@@ -7,25 +7,25 @@ export const AboutUsSection = (): JSX.Element => {
     {
       title: "Análise",
       description: "Levantamos os fluxos e necessidades da sua clínica.",
-      image: "/assets/edf56de4-100b-4b67-8e90-9435c9e97c6f-1.png",
+      image: "/assets/icon-analysis.png",
       alt: "Análise",
     },
     {
       title: "Configuração",
       description: "Adaptamos a IA ao seu sistema e perfil de atendimento.",
-      image: "/assets/20121dc6-9e0d-4b1e-a091-0f5a44b897d2-1.png",
+      image: "/assets/icon-configuration.png",
       alt: "Configuração",
     },
     {
       title: "Treinamento",
       description: "Treinamos sua equipe em poucos minutos.",
-      image: "/assets/8009b747-cada-417c-b95e-eef56695cf98-1.png",
+      image: "/assets/icon-training.png",
       alt: "Treinamento",
     },
     {
       title: "Operação",
       description: "A IA entra em ação com suporte contínuo da nossa equipe.",
-      image: "/assets/b3148e3c-88f2-44e4-826f-f8a1723605a8-1.png",
+      image: "/assets/icon-operation.png",
       alt: "Operação",
     },
   ];

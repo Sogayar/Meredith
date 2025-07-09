@@ -1,0 +1,6 @@
+<!-- Blog Post 2 - Estratégias -->
+<svg width="320" height="192" viewBox="0 0 320 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="320" height="192" fill="#f0f9ff"/>
+  <rect x="40" y="40" width="240" height="112" rx="8" fill="#27a987" opacity="0.1"/>
+  <text x="160" y="100" text-anchor="middle" fill="#27a987" font-family="Arial" font-size="16" font-weight="bold">Estratégias</text>
+</svg>

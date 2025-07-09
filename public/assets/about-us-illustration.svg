@@ -1,0 +1,7 @@
+<!-- About Us Section Illustration -->
+<svg width="400" height="300" viewBox="0 0 400 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="300" fill="#f8fafc"/>
+  <circle cx="200" cy="150" r="80" fill="#e6f1ff" stroke="#0080df" stroke-width="2"/>
+  <rect x="160" y="120" width="80" height="60" rx="8" fill="#0080df" opacity="0.1"/>
+  <text x="200" y="155" text-anchor="middle" fill="#0080df" font-family="Arial" font-size="14" font-weight="bold">Sobre Nós</text>
+</svg>

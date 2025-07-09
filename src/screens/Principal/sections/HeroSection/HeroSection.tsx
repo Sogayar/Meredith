@@ -69,9 +69,9 @@ export const HeroSection = (): JSX.Element => {
           <div className="flex gap-3 mt-[59px] mb-[59px]">
             <Button className="h-16 w-[238px] bg-white text-black rounded-lg border-2 border-solid font-bold text-lg [font-family:'Outfit',Helvetica]">
               <img
-                className="w-[13.5px] h-[18px] mr-2"
+                className="w-[14px] h-[18px] mr-2"
                 alt="Frame"
-                src="/assets/frame-39.svg"
+                src="/assets/icon-test-button.svg"
               />
               Teste Agora
             </Button>
@@ -100,7 +100,7 @@ export const HeroSection = (): JSX.Element => {
               <div className="flex items-center">
                 <Avatar className="w-12 h-12 shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a]">
                   <img
-                    src="/assets/div.png"
+                    src="/assets/avatar-dra-sofia.png"
                     alt="Doctor profile"
                     className="w-full h-full object-cover rounded-full"
                   />
@@ -116,9 +116,9 @@ export const HeroSection = (): JSX.Element => {
               </div>
               <div className="w-[50px] h-[50px] bg-white rounded-full shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] flex items-center justify-center">
                 <img
-                  className="w-[17.5px] h-5"
+                  className="w-[18px] h-5"
                   alt="Frame"
-                  src="/assets/frame-21.svg"
+                  src="/assets/icon-call.svg"
                 />
               </div>
             </div>
@@ -151,9 +151,9 @@ export const HeroSection = (): JSX.Element => {
                     {message.hasAudio && (
                       <div className="flex items-center mt-3">
                         <img
-                          className="w-[15px] h-3"
+                          className="w-[15px] h-[12px]"
                           alt="Frame"
-                          src="/assets/frame-47.svg"
+                          src="/assets/icon-audio.svg"
                         />
                         <span className="ml-1 [font-family:'Outfit',Helvetica] font-normal text-gray-500 text-xs">
                           Áudio enviado
@@ -169,9 +169,9 @@ export const HeroSection = (): JSX.Element => {
             <div className="flex items-center p-4 border-t">
               <div className="flex items-center w-full">
                 <img
-                  className="w-[15.75px] h-[18px] mr-2"
+                  className="w-[16px] h-[18px] mr-2"
                   alt="Frame"
-                  src="/assets/frame-55.svg"
+                  src="/assets/icon-attachment.svg"
                 />
                 <div className="relative flex-1 bg-gray-100 rounded-full">
                   <Input
@@ -180,18 +180,18 @@ export const HeroSection = (): JSX.Element => {
                   />
                   <div className="absolute right-4 top-1/2 -translate-y-1/2 flex items-center gap-2">
                     <img
-                      className="w-3.5 h-4"
+                      className="w-[14px] h-4"
                       alt="Frame"
-                      src="/assets/frame-40.svg"
+                      src="/assets/icon-emoji.svg"
                     />
-                    <img className="w-4 h-4" alt="Frame" src="/assets/frame-54.svg" />
+                    <img className="w-4 h-4" alt="Frame" src="/assets/icon-microphone.svg" />
                   </div>
                 </div>
                 <div className="ml-3 w-[30px] h-11 bg-[#25d366] rounded-full flex items-center justify-center">
                   <img
-                    className="w-[13.5px] h-[18px]"
+                    className="w-[14px] h-[18px]"
                     alt="Frame"
-                    src="/assets/frame-49.svg"
+                    src="/assets/icon-send-whatsapp.svg"
                   />
                 </div>
               </div>

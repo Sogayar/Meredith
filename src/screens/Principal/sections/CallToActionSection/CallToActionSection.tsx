@@ -14,7 +14,7 @@ export const CallToActionSection = (): JSX.Element => {
         '"O HealthBot reduziu em 50% o tempo que gastávamos com agendamentos e lembretes. Nossa secretária agora consegue focar em tarefas mais importantes e o índice de faltas caiu drasticamente."',
       author: "Dr. João Silva",
       clinic: "Clínica Dermatológica Silva",
-      avatar: "/assets/img-3.png",
+      avatar: "/assets/avatar-dr-joao.png",
       avatarFallback: "JS",
     },
     {
@@ -22,7 +22,7 @@ export const CallToActionSection = (): JSX.Element => {
         '"Nossos pacientes adoram a facilidade de comunicação. Conseguimos aumentar a adesão aos tratamentos com os lembretes automáticos e o feedback tem sido extremamente positivo."',
       author: "Dra. Ana Oliveira",
       clinic: "Centro Médico Bem Estar",
-      avatar: "/assets/img-5.png",
+      avatar: "/assets/avatar-dra-ana.png",
       avatarFallback: "AO",
     },
     {
@@ -30,7 +30,7 @@ export const CallToActionSection = (): JSX.Element => {
         '"A implementação foi surpreendentemente rápida e o suporte é excelente. Nossa rede de clínicas conseguiu padronizar a comunicação com pacientes, mantendo um alto nível de personalização."',
       author: "Dr. Carlos Mendes",
       clinic: "Rede Saúde Prime",
-      avatar: "/assets/img-6.png",
+      avatar: "/assets/avatar-dr-carlos.png",
       avatarFallback: "CM",
     },
   ];
@@ -102,8 +102,8 @@ export const CallToActionSection = (): JSX.Element => {
                     </p>
                     <p className="text-gray-500 text-sm font-['Poppins',Helvetica]">
                       {testimonial.clinic}
-                    </p>
-                  </div>
+                    ? "/assets/star-half.svg"
+                    : "/assets/star-full.svg"
                 </div>
               </CardContent>
             </Card>

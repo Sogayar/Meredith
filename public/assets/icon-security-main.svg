@@ -1,0 +1,6 @@
+<!-- Main Security Icon -->
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M30 55s20-10 20-25V10L30 2.5 10 10v20c0 15 20 25 20 25z" stroke="#0080df" stroke-width="3" fill="none"/>
+  <path d="M22.5 30l5 5 10-10" stroke="#0080df" stroke-width="3" fill="none"/>
+  <circle cx="30" cy="30" r="15" fill="#e6f1ff"/>
+</svg>

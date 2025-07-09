@@ -1,0 +1,8 @@
+<!-- Brazil Servers Icon -->
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="2" y="4" width="16" height="12" rx="2" stroke="#0080df" stroke-width="1.5" fill="none"/>
+  <circle cx="5" cy="8" r="1" fill="#0080df"/>
+  <circle cx="8" cy="8" r="1" fill="#0080df"/>
+  <line x1="2" y1="12" x2="18" y2="12" stroke="#0080df" stroke-width="1"/>
+  <text x="10" y="15" text-anchor="middle" fill="#0080df" font-family="Arial" font-size="4">BR</text>
+</svg>

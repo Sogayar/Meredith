@@ -26,15 +26,15 @@ export const StatisticsSection = (): JSX.Element => {
   // Certification data
   const certifications = [
     {
-      icon: "/assets/frame-42.svg",
+      icon: "/assets/icon-iso27001.svg",
       text: "ISO 27001",
     },
     {
-      icon: "/assets/frame-17.svg",
+      icon: "/assets/icon-lgpd.svg",
       text: "LGPD Compliance",
     },
     {
-      icon: "/assets/frame-46.svg",
+      icon: "/assets/icon-healthtech.svg",
       text: "Health Tech Alliance",
     },
   ];
@@ -76,7 +76,7 @@ export const StatisticsSection = (): JSX.Element => {
         <div className="flex gap-12">
           {/* Left side image */}
           <div className="flex-1">
-            <img className="w-full h-auto" alt="Sobre nós" src="/assets/div-1.svg" />
+            <img className="w-full h-auto" alt="Sobre nós" src="/assets/about-us-illustration.svg" />
           </div>
 
           {/* Right side content */}

@@ -7,7 +7,7 @@ export const TestimonialsSection = (): JSX.Element => {
     {
       id: 1,
       title: "Conforme LGPD (Brasil)",
-      icon: "/assets/frame-17.svg",
+      icon: "/assets/icon-lgpd.svg",
     },
     {
       id: 2,
@@ -17,22 +17,22 @@ export const TestimonialsSection = (): JSX.Element => {
     {
       id: 3,
       title: "Compatível com HIPAA (EUA)",
-      icon: "/assets/frame-13.svg",
+      icon: "/assets/icon-hipaa.svg",
     },
     {
       id: 4,
       title: "Servidores seguros no Brasil",
-      icon: "/assets/frame-22.svg",
+      icon: "/assets/icon-server-brazil.svg",
     },
     {
       id: 5,
       title: "Compatível com GDPR (Europa)",
-      icon: "/assets/lucide-globe-lock.svg",
+      icon: "/assets/icon-gdpr.svg",
     },
     {
       id: 6,
       title: "Infraestrutura validada por especialistas",
-      icon: "/assets/frame-23.svg",
+      icon: "/assets/icon-infrastructure.svg",
     },
   ];
 
@@ -64,7 +64,7 @@ export const TestimonialsSection = (): JSX.Element => {
                     <img
                       className="w-6 h-6"
                       alt="GlobeIcon LockIcon Icon"
-                      src="/assets/lucide-globe-lock.svg"
+                      src="/assets/icon-gdpr.svg"
                     />
                   ) : null}
                   <div className="ml-3 font-['Poppins',Helvetica] font-medium text-gray-800 text-base">
@@ -83,16 +83,16 @@ export const TestimonialsSection = (): JSX.Element => {
                 <img
                   className="w-[60px] h-[60px]"
                   alt="Security Icon"
-                  src="/assets/frame-7.svg"
+                  src="/assets/icon-security-main.svg"
                 />
               </div>
 
               <div className="absolute w-12 h-12 top-0 right-0 bg-[#00b389] rounded-full shadow-[0px_4px_6px_#0000001a,0px_2px_4px_#0000001a] flex items-center justify-center">
                 <div className="w-[18px] h-5 flex items-center justify-center">
                   <img
-                    className="w-[17.5px] h-5"
+                    className="w-[18px] h-5"
                     alt="Check Icon"
-                    src="/assets/frame-1.svg"
+                    src="/assets/icon-check-green.svg"
                   />
                 </div>
               </div>
