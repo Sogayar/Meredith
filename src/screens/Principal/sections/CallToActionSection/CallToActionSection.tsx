@@ -39,20 +39,22 @@ export const CallToActionSection = (): JSX.Element => {
   const StarRating = () => (
     <div className="flex">
       {[1, 2, 3, 4, 5].map((_, index) => (
-        <div
-          key={index}
-          className="flex w-[18px] h-4 items-center justify-center"
-        >
-          <img
-            className="relative w-[18px] h-4"
-            alt="Star rating"
-            src={
-              index === 4 && testimonials.indexOf(testimonials[2]) === 2
-                ? "/assets/frame-76.svg"
-                : "/assets/frame-53.svg"
-            }
-          />
-        </div>
+        const starSrc = index === 4 && testimonials.indexOf(testimonials[2]) === 2
+          ? "/assets/star-half.svg"
+          : "/assets/star-full.svg";
+        
+        return (
+          <div
+            key={index}
+            className="flex w-[18px] h-4 items-center justify-center"
+          >
+            <img
+              className="relative w-[18px] h-4"
+              alt="Star rating"
+              src={starSrc}
+            />
+          </div>
+        );
       ))}
     </div>
   );
