@@ -7,11 +7,22 @@ import { Input } from "../../../../components/ui/input";
 
 export const BlogSection = (): JSX.Element => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [clinicName, setClinicName] = useState('');
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real application, you would handle form submission here (e.g., send data to a server)
-    setFormSubmitted(true);
+
+    if (fullName && email && phone && clinicName && termsAccepted) {
+      // In a real application, you would handle form submission here (e.g., send data to a server)
+      console.log('Form Submitted:', { fullName, email, phone, clinicName, termsAccepted });
+      setFormSubmitted(true);
+    } else {
+      alert('Por favor, preencha todos os campos e aceite os termos de privacidade.');
+    }
   };
 
   // Form field labels
@@ -96,6 +107,13 @@ export const BlogSection = (): JSX.Element => {
                   <Input
                     id={field.id}
                     className="w-full h-[42px] rounded-lg border border-gray-300"
+                    value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : field.id === 'phone' ? phone : clinicName}
+                    onChange={(e) => {
+                      if (field.id === 'fullName') setFullName(e.target.value);
+                      else if (field.id === 'email') setEmail(e.target.value);
+                      else if (field.id === 'phone') setPhone(e.target.value);
+                      else if (field.id === 'clinicName') setClinicName(e.target.value);
+                    }}
                   />
                 </div>
               ))}
@@ -104,6 +122,8 @@ export const BlogSection = (): JSX.Element => {
                 <Checkbox
                   id="terms"
                   className="mt-1 border-black border-[0.5px] rounded-[1px]"
+                  checked={termsAccepted}
+                  onCheckedChange={setTermsAccepted}
                 />
                 <div className="space-y-1">
                   <label
