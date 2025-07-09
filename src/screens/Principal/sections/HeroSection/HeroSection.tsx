@@ -124,7 +124,7 @@ export const HeroSection = (): JSX.Element => {
             </div>
 
             {/* Chat Messages */}
-            <div className="h-[250px] lg:h-[298px] p-4 lg:p-6 overflow-y-auto">
+            <div className="h-[250px] lg:h-[298px] p-4 lg:p-6 overflow-y-auto bg-white">
               {chatMessages.map((message, index) => (
                 <div
                   key={index} 
@@ -166,7 +166,7 @@ export const HeroSection = (): JSX.Element => {
             </div>
 
             {/* Chat Input */}
-            <div className="flex items-center p-3 lg:p-4 border-t">
+            <div className="flex items-center p-3 lg:p-4 border-t bg-white">
               <div className="flex items-center w-full">
                 <img
                   className="w-3 lg:w-[16px] h-4 lg:h-[18px] mr-2"

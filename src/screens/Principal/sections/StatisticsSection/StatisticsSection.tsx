@@ -42,7 +42,7 @@ export const StatisticsSection = (): JSX.Element => {
   return (
     <section className="relative w-full bg-gray-50 py-24">
       {/* Statistics Cards */}
-      <div className="relative w-full max-w-7xl mx-auto -mt-36 px-4">
+      <div className="relative w-full max-w-7xl mx-auto -mt-24 lg:-mt-36 px-4">
         <div className="bg-white p-8 lg:p-12 rounded-lg shadow-lg">
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8">
             {statistics.map((stat, index) => (
