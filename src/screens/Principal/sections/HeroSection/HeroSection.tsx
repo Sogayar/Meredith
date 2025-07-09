@@ -66,30 +66,32 @@ export const HeroSection = (): JSX.Element => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-3 mt-8 lg:mt-[59px] mb-8 lg:mb-[59px] w-full sm:w-auto">
-            <Button className="h-12 lg:h-16 w-full sm:w-[238px] bg-white text-black rounded-lg border-2 border-solid font-bold text-base lg:text-lg [font-family:'Outfit',Helvetica]">
+            <Button className="h-12 lg:h-16 w-full sm:w-[238px] bg-white text-black rounded-lg border-2 border-solid font-bold text-base lg:text-lg [font-family:'Outfit',Helvetica] hover:bg-[#0080df] hover:text-white transition-colors duration-300">
               <img
                 className="w-[14px] h-[18px] mr-2"
                 alt="Frame"
                 src="/assets/icon-test-button.svg"
               />
-              Teste Agora
+              <a href="#teste-agora">Teste Agora</a>
             </Button>
 
             <Button
               variant="outline"
-              className="h-12 lg:h-16 w-full sm:w-[222px] rounded-lg border-2 border-solid border-white text-white font-normal text-base lg:text-lg [font-family:'Outfit',Helvetica]"
+              className="h-12 lg:h-16 w-full sm:w-[222px] rounded-lg border-2 border-solid bg-[#0080df] border-white text-white font-normal text-base lg:text-lg [font-family:'Outfit',Helvetica] hover:bg-white hover:text-[#0080df] hover:border-[#0080df] transition-colors duration-300"
             >
-              Ver Demonstração
+              <a href="#teste-agora">Solicitar Demonstração</a>
             </Button>
           </div>
 
-          {/* Subtitle */}
-          <p className="w-full max-w-[1040px] text-white text-lg lg:text-2xl text-center lg:text-left tracking-[0.15px] leading-6 [font-family:'Albert_Sans',Helvetica] font-medium mt-8 lg:mt-[65px]">
-            Ela atende, organiza, agenda e responde seus pacientes com empatia.{" "}
-            <br />
-            Como uma secretária real, mas incansável.
-          </p>
+          
         </div>
+
+        {/* Subtitle */}
+        <p className="w-full max-w-[1040px] text-white text-lg lg:text-2xl text-center tracking-[0.15px] leading-6 [font-family:'Albert_Sans',Helvetica] font-medium mt-8 lg:mt-[65px] mx-auto">
+          Ela atende, organiza, agenda e responde seus pacientes com empatia.
+          <br />
+          Como uma secretária real, mas incansável.
+        </p>
 
         {/* Chat Card */}
         <Card className="absolute w-[320px] lg:w-[584px] h-[400px] lg:h-[456px] top-4 lg:top-16 right-4 lg:right-0 rounded-2xl shadow-[0px_25px_50px_#00000040] overflow-hidden bg-white">
