@@ -1,11 +1,19 @@
 import { SendIcon } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Checkbox } from "../../../../components/ui/checkbox";
 import { Input } from "../../../../components/ui/input";
 
 export const BlogSection = (): JSX.Element => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // In a real application, you would handle form submission here (e.g., send data to a server)
+    setFormSubmitted(true);
+  };
+
   // Form field labels
   const formFields = [
     { id: "fullName", label: "Nome completo" },
@@ -76,6 +84,7 @@ export const BlogSection = (): JSX.Element => {
             </p>
 
             <div className="space-y-5 mt-8">
+              <form onSubmit={handleSubmit}>
               {formFields.map((field) => (
                 <div key={field.id} className="space-y-2">
                   <label
@@ -114,11 +123,12 @@ export const BlogSection = (): JSX.Element => {
               <Button className="w-full h-12 bg-[#0080df] hover:bg-[#0070c5] rounded-lg font-medium text-base font-['Poppins',Helvetica]">
                 Receber Demonstração
               </Button>
+              </form>
             </div>
           </div>
 
           {/* Right side - Chat demo */}
-          <div className="w-full lg:w-1/2">
+          <div className={`w-full lg:w-1/2 ${!formSubmitted ? 'blur-sm pointer-events-none' : ''}`}>
             <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0">
               <CardContent className="p-0">
                 {/* Chat header */}
@@ -188,8 +198,9 @@ export const BlogSection = (): JSX.Element => {
                     <Input
                       className="rounded-r-none h-[42px] border-gray-300 font-['Poppins',Helvetica] text-base"
                       placeholder="Digite sua mensagem..."
+                      disabled={!formSubmitted}
                     />
-                    <Button className="h-[42px] w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]">
+                    <Button className="h-[42px] w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]" disabled={!formSubmitted}>
                       <SendIcon className="h-4 w-4" />
                     </Button>
                   </div>
