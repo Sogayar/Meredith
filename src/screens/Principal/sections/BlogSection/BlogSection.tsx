@@ -149,7 +149,7 @@ export const BlogSection = (): JSX.Element => {
                 </div>
 
                 {/* Chat messages */}
-                <div className="p-6 flex-1 overflow-y-auto">
+                <div className="p-6 flex-1 max-h-[350px] overflow-y-auto">
                   {chatMessages.map((message, index) => (
                     <div
                       key={index}
