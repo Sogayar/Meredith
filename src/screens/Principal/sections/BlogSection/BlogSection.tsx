@@ -68,7 +68,7 @@ export const BlogSection = (): JSX.Element => {
   return (
     <section className="w-full py-16 bg-gray-50">
       <div className="container max-w-7xl mx-auto px-4">
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-stretch">
           {/* Left side - Form */}
           <div className="w-full lg:w-1/2 space-y-4">
             <h2 id="teste-agora" className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] scroll-mt-[120px]">
@@ -129,8 +129,8 @@ export const BlogSection = (): JSX.Element => {
 
           {/* Right side - Chat demo */}
           <div className={`w-full lg:w-1/2 ${!formSubmitted ? 'blur-sm pointer-events-none' : ''}`}>
-            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0">
-              <CardContent className="p-0">
+            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0 h-full">
+              <CardContent className="p-0 flex flex-col h-full">
                 {/* Chat header */}
                 <div className="p-6 border-b">
                   <div className="flex items-center">
@@ -149,7 +149,7 @@ export const BlogSection = (): JSX.Element => {
                 </div>
 
                 {/* Chat messages */}
-                <div className="p-6 h-[304px] overflow-y-auto">
+                <div className="p-6 flex-1 overflow-y-auto">
                   {chatMessages.map((message, index) => (
                     <div
                       key={index}
