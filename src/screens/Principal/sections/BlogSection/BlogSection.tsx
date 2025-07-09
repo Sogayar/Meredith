@@ -129,8 +129,8 @@ export const BlogSection = (): JSX.Element => {
 
           {/* Right side - Chat demo */}
           <div className={`w-full lg:w-1/2 ${!formSubmitted ? 'blur-sm pointer-events-none' : ''}`}>
-            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0 h-full">
-              <CardContent className="p-0 flex flex-col h-full">
+            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0">
+              <CardContent className="p-0 flex flex-col">
                 {/* Chat header */}
                 <div className="p-6 border-b">
                   <div className="flex items-center">
@@ -149,7 +149,7 @@ export const BlogSection = (): JSX.Element => {
                 </div>
 
                 {/* Chat messages */}
-                <div className="p-6 flex-1 overflow-y-auto">
+                <div className="p-6 max-h-[304px] overflow-y-auto">
                   {chatMessages.map((message, index) => (
                     <div
                       key={index}
