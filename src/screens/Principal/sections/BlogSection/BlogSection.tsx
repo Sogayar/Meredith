@@ -1,10 +1,15 @@
 import { SendIcon } from "lucide-react";
 import React, { useState } from "react";
 import InputMask from 'react-input-mask';
+import { createClient } from '@supabase/supabase-js';
 import { Button } from "../../../../components/ui/button";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Checkbox } from "../../../../components/ui/checkbox";
 import { Input } from "../../../../components/ui/input";
+
+const supabaseUrl = 'https://duiafwwwxztmtfvfczvc.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1aWFmd3d3eHp0bXRmdmZjenZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxMDIyMDEsImV4cCI6MjA2NzY3ODIwMX0.T2Ckq1Vi8fonhmbe9UfXvsF_Z97qzDEsfLESVxFIQnI';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const BlogSection = (): JSX.Element => {
   const [formSubmitted, setFormSubmitted] = useState(false);
@@ -20,7 +25,7 @@ export const BlogSection = (): JSX.Element => {
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsError, setTermsError] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     let isValid = true;
@@ -32,7 +37,7 @@ export const BlogSection = (): JSX.Element => {
       setFullNameError(false);
     }
 
-    if (!email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) { // More robust email regex
+    if (!email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
       setEmailError(true);
       isValid = false;
     } else {
@@ -61,14 +66,39 @@ export const BlogSection = (): JSX.Element => {
     }
 
     if (isValid) {
-      console.log('Form Submitted:', { fullName, email, phone, clinicName, termsAccepted });
-      setFormSubmitted(true);
+      try {
+        // Insert into form_submitions table
+        const { data: formSubmitionData, error: formSubmitionError } = await supabase
+          .from('form_submitions')
+          .insert([
+            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, terms_accepted: termsAccepted }
+          ]);
+
+        if (formSubmitionError) throw formSubmitionError;
+
+        // Insert into Leads table
+        const { data: leadsData, error: leadsError } = await supabase
+          .from('Leads')
+          .insert([
+            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, source: 'website_form' }
+          ]);
+
+        if (leadsError) throw leadsError;
+
+        console.log('Form Submitted and data saved to Supabase:', { formSubmitionData, leadsData });
+        setFormSubmitted(true);
+        alert('Formulário enviado com sucesso!');
+      } catch (error: any) {
+        console.error('Error submitting form to Supabase:', error.message);
+        alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+      }
     } else {
       alert('Por favor, preencha todos os campos corretamente.');
     }
   };
 
   // Form field labels
+}
   const formFields = [
     { id: "fullName", label: "Nome completo", placeholder: "Seu nome completo" },
     { id: "email", label: "Email", placeholder: "Seu melhor email" },
