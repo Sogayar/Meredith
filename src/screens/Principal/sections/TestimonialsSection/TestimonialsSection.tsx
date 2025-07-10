@@ -79,7 +79,7 @@ export const TestimonialsSection = (): JSX.Element => {
                     <img
                       className="w-[50px] h-[50px] lg:w-[60px] lg:h-[60px]"
                       alt="Security Icon"
-                      src="/assets/icon-security-main.svg"
+                      src="/assets/blindado.svg"
                     />
                   </div>
 
@@ -88,7 +88,7 @@ export const TestimonialsSection = (): JSX.Element => {
                       <img
                         className="w-4 h-4 lg:w-[18px] lg:h-5"
                         alt="Check Icon"
-                        src="/assets/icon-check-green.svg"
+                        src="/assets/icon-check-white.svg"
                       />
                     </div>
                   </div>
