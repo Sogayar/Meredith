@@ -30,6 +30,7 @@ export const BlogSection = (): JSX.Element => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submissionError, setSubmissionError] = useState<string | null>(null);
   const [isRecording, setIsRecording] = useState(false);
+  const [messageInput, setMessageInput] = useState('');
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const audioChunks = useRef<Blob[]>([]);
 
