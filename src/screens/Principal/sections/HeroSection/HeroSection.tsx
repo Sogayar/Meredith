@@ -119,7 +119,7 @@ export const HeroSection = (): JSX.Element => {
                 <img
                   className="w-4 lg:w-[18px] h-4 lg:h-5"
                   alt="Frame"
-                  src="/assets/icon-call.svg"
+                  src="/assets/agenda-check.svg"
                 />
               </div>
             </div>
