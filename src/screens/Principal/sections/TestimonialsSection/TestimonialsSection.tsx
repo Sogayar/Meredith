@@ -12,7 +12,7 @@ export const TestimonialsSection = (): JSX.Element => {
     {
       id: 2,
       title: "Criptografia de ponta a ponta",
-      icon: null,
+      icon: "/assets/icon-cripto.svg",
     },
     {
       id: 3,
@@ -47,7 +47,7 @@ export const TestimonialsSection = (): JSX.Element => {
               </h2>
 
               <p className="text-lg text-gray-700 font-['Poppins',Helvetica] font-normal leading-7 mb-8">
-                O HealthAssist foi desenvolvido priorizando a segurança dos dados e
+                A Meredith foi desenvolvida priorizando a segurança dos dados e
                 a conformidade com as regulamentações de saúde.
               </p>
 

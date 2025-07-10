@@ -16,7 +16,7 @@ const services = [
     ],
   },
   {
-    icon: "/assets/icon-scheduling.svg",
+    icon: "/assets/agenda-check.svg",
     title: "Agendamento Inteligente",
     description:
       "Automatize o processo de agendamento, remarcação e cancelamento de consultas com confirmação automática.",
@@ -60,7 +60,7 @@ const services = [
     ],
   },
   {
-    icon: "/assets/icon-security.svg",
+    icon: "/assets/icon-lgpd.svg",
     title: "Conformidade e Segurança",
     description:
       "Garanta que todas as comunicações estejam em conformidade com as regulamentações de saúde e proteção de dados.",
