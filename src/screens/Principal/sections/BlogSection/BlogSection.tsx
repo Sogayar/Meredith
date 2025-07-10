@@ -1,4 +1,4 @@
-import { SendIcon } from "lucide-react";
+import { SendIcon, MicIcon } from "lucide-react";
 import React, { useState, useRef } from "react";
 import InputMask from 'react-input-mask';
 import { createClient } from '@supabase/supabase-js';
@@ -23,11 +23,20 @@ export const BlogSection = (): JSX.Element => {
   const [phoneError, setPhoneError] = useState(false);
   const [clinicName, setClinicName] = useState('');
   const [clinicNameError, setClinicNameError] = useState(false);
+  const [areaDeAtuacao, setAreaDeAtuacao] = useState('');
+  const [areaDeAtuacaoError, setAreaDeAtuacaoError] = useState(false);
   const [termsAccepted, setTermsAccepted] = useState(false);
   const [termsError, setTermsError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const audioChunks = useRef<Blob[]>([]);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmissionError(null);
 
     let isValid = true;
 
@@ -59,6 +68,13 @@ export const BlogSection = (): JSX.Element => {
       setClinicNameError(false);
     }
 
+    if (!areaDeAtuacao) {
+      setAreaDeAtuacaoError(true);
+      isValid = false;
+    } else {
+      setAreaDeAtuacaoError(false);
+    }
+
     if (!termsAccepted) {
       setTermsError(true);
       isValid = false;
@@ -67,34 +83,85 @@ export const BlogSection = (): JSX.Element => {
     }
 
     if (isValid) {
+      setIsSubmitting(true);
       try {
-        // Insert into form_submitions table
+        const { data: existingSubmissions, error: existingSubmissionsError } = await supabase
+          .from('form_submissions')
+          .select('email')
+          .eq('email', email);
+
+        if (existingSubmissionsError) {
+            throw existingSubmissionsError;
+        }
+
+        if (existingSubmissions && existingSubmissions.length > 0) {
+          setSubmissionError('Este email já foi cadastrado.');
+          setIsSubmitting(false);
+          return;
+        }
+
         const { data: formSubmitionData, error: formSubmitionError } = await supabase
-          .from('form_submitions')
+          .from('form_submissions')
           .insert([
-            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, terms_accepted: termsAccepted }
+            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, area_de_atuacao: areaDeAtuacao, terms_accepted: termsAccepted }
           ]);
 
         if (formSubmitionError) throw formSubmitionError;
 
-        // Insert into Leads table
         const { data: leadsData, error: leadsError } = await supabase
-          .from('Leads')
+          .from('leads')
           .insert([
-            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, source: 'website_form' }
+            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, area_de_atuacao: areaDeAtuacao, source: 'website_form' }
           ]);
 
         if (leadsError) throw leadsError;
 
         console.log('Form Submitted and data saved to Supabase:', { formSubmitionData, leadsData });
         setFormSubmitted(true);
-        alert('Formulário enviado com sucesso!');
+        console.log('Formulário enviado com sucesso!');
+
+        setFullName('');
+        setEmail('');
+        setPhone('');
+        setClinicName('');
+        setAreaDeAtuacao('');
+        setTermsAccepted(false);
+
       } catch (error: any) {
         console.error('Error submitting form to Supabase:', error.message);
-        alert('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+        setSubmissionError('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+      } finally {
+        setIsSubmitting(false);
       }
     } else {
-      alert('Por favor, preencha todos os campos corretamente.');
+      console.log('Por favor, preencha todos os campos corretamente.');
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder.current = new MediaRecorder(stream);
+      mediaRecorder.current.ondataavailable = (event) => {
+        audioChunks.current.push(event.data);
+      };
+      mediaRecorder.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/webm' });
+        // Here you would send the audioBlob to your backend for STT and N8N processing
+        console.log('Audio recorded:', audioBlob);
+        audioChunks.current = []; // Clear chunks for next recording
+      };
+      mediaRecorder.current.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
+      mediaRecorder.current.stop();
+      setIsRecording(false);
     }
   };
 
@@ -104,6 +171,7 @@ export const BlogSection = (): JSX.Element => {
     { id: "email", label: "Email", placeholder: "Seu melhor email" },
     { id: "phone", label: "Telefone", placeholder: "(00) 00000-0000" },
     { id: "clinicName", label: "Nome da clínica", placeholder: "Nome da sua clínica" },
+    { id: "areaDeAtuacao", label: "Especialidade", placeholder: "Uma clinica de..." },
   ];
 
   // Chat messages data
@@ -164,7 +232,7 @@ export const BlogSection = (): JSX.Element => {
             <p className="text-lg text-gray-600 font-['Poppins',Helvetica]">
               Experimente como seria a interação de seus pacientes com nosso
               agente de automação. Preencha o formulário e receba uma
-              demonstração.
+              demonstração gratuita! 
             </p>
 
             <div className="space-y-12 mt-8">
@@ -187,11 +255,12 @@ export const BlogSection = (): JSX.Element => {
                         const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
                         setPhoneValid(phoneRegex.test(value));
                       }}
-                      inputRef={phoneInputRef}
+                      
                     >
                       {(inputProps: any) => (
                         <Input
                           {...inputProps}
+                          ref={phoneInputRef}
                           id={field.id}
                           className={`w-full h-[42px] rounded-lg border ${phoneError ? 'border-red-500' : 'border-gray-300'}`}
                           placeholder={field.placeholder}
@@ -201,12 +270,13 @@ export const BlogSection = (): JSX.Element => {
                   ) : (
                     <Input
                       id={field.id}
-                      className={`w-full h-[42px] rounded-lg border ${field.id === 'fullName' && fullNameError ? 'border-red-500' : field.id === 'email' && emailError ? 'border-red-500' : field.id === 'clinicName' && clinicNameError ? 'border-red-500' : 'border-gray-300'}`}
-                      value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : clinicName}
+                      className={`w-full h-[42px] rounded-lg border ${field.id === 'fullName' && fullNameError ? 'border-red-500' : field.id === 'email' && emailError ? 'border-red-500' : field.id === 'clinicName' && clinicNameError ? 'border-red-500' : field.id === 'areaDeAtuacao' && areaDeAtuacaoError ? 'border-red-500' : 'border-gray-300'}`}
+                      value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : field.id === 'clinicName' ? clinicName : areaDeAtuacao}
                       onChange={(e) => {
                         if (field.id === 'fullName') setFullName(e.target.value);
                         else if (field.id === 'email') setEmail(e.target.value);
                         else if (field.id === 'clinicName') setClinicName(e.target.value);
+                        else if (field.id === 'areaDeAtuacao') setAreaDeAtuacao(e.target.value);
                       }}
                       placeholder={field.placeholder}
                     />
@@ -251,15 +321,18 @@ export const BlogSection = (): JSX.Element => {
                 </div>
               </div>
 
-              <Button className="w-full h-12 bg-[#0080df] hover:bg-[#0070c5] rounded-lg font-medium text-base font-['Poppins',Helvetica]">
-                Receber Demonstração
+              <Button type="submit" className="w-full h-12 bg-[#0080df] hover:bg-[#0070c5] rounded-lg font-medium text-base font-['Poppins',Helvetica]" disabled={isSubmitting}>
+                {isSubmitting ? 'Enviando...' : 'Receber Demonstração'}
               </Button>
+              {submissionError && (
+                <p className="text-red-500 text-sm mt-1">{submissionError}</p>
+              )}
             </form>
             </div>
           </div>
 
           {/* Right side - Chat demo */}
-          <div className={`w-full lg:w-1/2 ${!formSubmitted ? 'blur-sm pointer-events-none' : ''}`}>
+          <div className={`w-full lg:w-1/2 ${/* !formSubmitted ? 'blur-sm pointer-events-none' : '' */ ''}`}> {/* LEMBRETE: Descomente esta linha para reativar o efeito de desfoque após o envio do formulário. */}
             <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0 h-full">
               <CardContent className="p-0 flex flex-col h-full">
                 {/* Chat header */}
@@ -324,15 +397,23 @@ export const BlogSection = (): JSX.Element => {
                 </div>
 
                 {/* Chat input */}
-                <div className="p-6 pt-4 pb-2 border-t">
+                <div className="p-6 pt-0 pb-2 border-t">
                   <div className="flex">
                     <Input
                       className="rounded-r-none h-12 border-gray-300 font-['Poppins',Helvetica] text-base"
                       placeholder="Digite sua mensagem..."
-                      disabled={!formSubmitted}
+                      disabled={!formSubmitted || isRecording}
                     />
-                    <Button className="h-12 w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]" disabled={!formSubmitted}>
-                      <SendIcon className="h-4 w-4" />
+                    <Button
+                      className="h-12 w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]"
+                      disabled={!formSubmitted}
+                      onClick={isRecording ? stopRecording : startRecording}
+                    >
+                      {isRecording ? (
+                        <MicIcon className="h-4 w-4 animate-pulse" />
+                      ) : (
+                        <SendIcon className="h-4 w-4" />
+                      )}
                     </Button>
                   </div>
                 </div>
