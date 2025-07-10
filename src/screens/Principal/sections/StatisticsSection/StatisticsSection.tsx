@@ -76,7 +76,7 @@ export const StatisticsSection = (): JSX.Element => {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-12">
           {/* Left side image */}
           <div className="flex-1 order-2 lg:order-1">
-            <img className="w-full h-auto" alt="Sobre nós" src="/assets/about-us-illustration.svg" />
+            <img className="w-full h-auto" alt="Sobre nós" src="/assets/about-us.svg" />
           </div>
 
           {/* Right side content */}

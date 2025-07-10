@@ -333,14 +333,14 @@ export const BlogSection = (): JSX.Element => {
           </div>
 
           {/* Right side - Chat demo */}
-          <div className={`w-full lg:w-1/2 ${/* !formSubmitted ? 'blur-sm pointer-events-none' : '' */ ''}`}> {/* LEMBRETE: Descomente esta linha para reativar o efeito de desfoque após o envio do formulário. */}
-            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0 h-full">
+          <div className={`w-full sm:w-[90%] md:w-[80%] lg:w-1/2 mx-auto ${/* !formSubmitted ? 'blur-sm pointer-events-none' : '' */ ''}`}> {/* LEMBRETE: Descomente esta linha para reativar o efeito de desfoque após o envio do formulário. */}
+            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0 h-[70vh] lg:h-full">
               <CardContent className="p-0 flex flex-col h-full">
                 {/* Chat header */}
                 <div className="p-6 border-b">
                   <div className="flex items-center">
                     <div className="w-10 h-10 bg-[#dcf3ff] rounded-full flex items-center justify-center">
-                      <img className="w-5 h-5" alt="Logo" src="/assets/logo-chat.svg" />
+                      <img className="w-10 h-10" alt="Logo" src="/assets/logo-chat.svg" />
                     </div>
                     <div className="ml-3">
                       <p className="font-medium text-base text-gray-800 font-['Poppins',Helvetica]">
@@ -354,7 +354,7 @@ export const BlogSection = (): JSX.Element => {
                 </div>
 
                 {/* Chat messages */}
-                <div className="p-6 flex-1 max-h-[350px] overflow-y-auto">
+                <div className="p-6 flex-1 max-h-[500px] overflow-y-auto">
                   {chatMessages.map((message, index) => (
                     <div
                       key={index}
