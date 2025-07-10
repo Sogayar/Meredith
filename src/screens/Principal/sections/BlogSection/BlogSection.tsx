@@ -1,5 +1,5 @@
 import { SendIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import InputMask from 'react-input-mask';
 import { createClient } from '@supabase/supabase-js';
 import { Button } from "../../../../components/ui/button";
@@ -13,6 +13,7 @@ const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
 export const BlogSection = (): JSX.Element => {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const phoneInputRef = useRef(null);
   const [fullName, setFullName] = useState('');
   const [fullNameError, setFullNameError] = useState(false);
   const [email, setEmail] = useState('');
@@ -186,6 +187,7 @@ export const BlogSection = (): JSX.Element => {
                         const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
                         setPhoneValid(phoneRegex.test(value));
                       }}
+                      inputRef={phoneInputRef}
                     >
                       {(inputProps: any) => (
                         <Input
