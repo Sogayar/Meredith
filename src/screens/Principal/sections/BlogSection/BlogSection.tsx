@@ -98,7 +98,6 @@ export const BlogSection = (): JSX.Element => {
   };
 
   // Form field labels
-}
   const formFields = [
     { id: "fullName", label: "Nome completo", placeholder: "Seu nome completo" },
     { id: "email", label: "Email", placeholder: "Seu melhor email" },
@@ -247,12 +246,13 @@ export const BlogSection = (): JSX.Element => {
                   {termsError && (
                     <p className="text-red-500 text-sm mt-1">Você deve aceitar os termos de privacidade.</p>
                   )}
+                </div>
               </div>
 
               <Button className="w-full h-12 bg-[#0080df] hover:bg-[#0070c5] rounded-lg font-medium text-base font-['Poppins',Helvetica]">
                 Receber Demonstração
               </Button>
-              </form>
+            </form>
             </div>
           </div>
 
