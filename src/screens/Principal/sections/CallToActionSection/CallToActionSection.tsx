@@ -30,7 +30,7 @@ export const CallToActionSection = (): JSX.Element => {
         '"A implementação foi surpreendentemente rápida e o suporte é excelente. Nossa rede de clínicas conseguiu padronizar a comunicação com pacientes, mantendo um alto nível de personalização."',
       author: "Dr. Carlos Mendes",
       clinic: "Rede Saúde Prime",
-      avatar: "/assets/avatar-dr-carlos.png",
+      avatar: "/assets/avatar-dr-carlos.svg",
       avatarFallback: "CM",
     },
   ];
