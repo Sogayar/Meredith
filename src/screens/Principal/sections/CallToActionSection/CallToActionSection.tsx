@@ -14,7 +14,7 @@ export const CallToActionSection = (): JSX.Element => {
         '"O HealthBot reduziu em 50% o tempo que gastávamos com agendamentos e lembretes. Nossa secretária agora consegue focar em tarefas mais importantes e o índice de faltas caiu drasticamente."',
       author: "Dr. João Silva",
       clinic: "Clínica Dermatológica Silva",
-      avatar: "/assets/avatar-dr-joao.png",
+      avatar: "/assets/avatar-dr-joao.svg",
       avatarFallback: "JS",
     },
     {
@@ -22,7 +22,7 @@ export const CallToActionSection = (): JSX.Element => {
         '"Nossos pacientes adoram a facilidade de comunicação. Conseguimos aumentar a adesão aos tratamentos com os lembretes automáticos e o feedback tem sido extremamente positivo."',
       author: "Dra. Ana Oliveira",
       clinic: "Centro Médico Bem Estar",
-      avatar: "/assets/avatar-dra-ana.png",
+      avatar: "/assets/avatar-dra-ana.svg",
       avatarFallback: "AO",
     },
     {
