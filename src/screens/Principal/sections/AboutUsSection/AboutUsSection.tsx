@@ -47,18 +47,18 @@ export const AboutUsSection = (): JSX.Element => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, index) => (
             <Card key={index} className="border-0 bg-transparent">
-              <CardContent className="flex flex-col items-center pt-6">
-                <div className="flex flex-col items-center mb-3">
+              <CardContent className="flex flex-col items-center justify-center text-center pt-6">
+                <div className="flex flex-col items-center justify-center mb-3">
                   <img
                     className="w-[100px] h-[100px] object-cover mb-4"
                     alt={step.alt}
                     src={step.image}
                   />
-                  <h3 className="font-semibold text-xl text-gray-800 font-['Poppins',Helvetica] text-center">
+                  <h3 className="font-semibold text-xl text-gray-800 font-['Poppins',Helvetica]">
                     {step.title}
                   </h3>
                 </div>
-                <p className="font-normal text-base text-gray-600 font-['Poppins',Helvetica] text-center">
+                <p className="font-normal text-base text-gray-600 font-['Poppins',Helvetica]">
                   {step.description}
                 </p>
               </CardContent>
