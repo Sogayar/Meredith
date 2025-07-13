@@ -1,4 +1,4 @@
-import { CheckIcon, XIcon } from "lucide-react";
+import { CheckIcon, XIcon, MessageCircle, ClipboardList, Mail } from "lucide-react";
 import React from "react";
 import { Badge } from "../../../../components/ui/badge";
 import { Button } from "../../../../components/ui/button";
@@ -18,7 +18,6 @@ import {
 } from "../../../../components/ui/table";
 
 export const FeaturesSection = (): JSX.Element => {
-  // Plan data for the pricing cards
   const plans = [
     {
       name: "Plano Básico",
@@ -75,63 +74,15 @@ export const FeaturesSection = (): JSX.Element => {
     },
   ];
 
-  // Comparison table data
-  const comparisonFeatures = [
-    {
-      name: "Canais de comunicação",
-      basic: "2 canais",
-      standard: "Todos os canais",
-      enterprise: "Todos os canais",
-    },
-    {
-      name: "Agendamento automatizado",
-      basic: "Básico",
-      standard: "Avançado",
-      enterprise: "Personalizado",
-    },
-    {
-      name: "Lembretes de consulta",
-      basic: "Simples",
-      standard: "Personalizados",
-      enterprise: "Totalmente personalizados",
-    },
-    {
-      name: "Acompanhamento pós-consulta",
-      basic: "Básico",
-      standard: "Completo",
-      enterprise: "Completo",
-    },
-    {
-      name: "Pesquisas de satisfação",
-      basic: false,
-      standard: true,
-      enterprise: true,
-    },
-    {
-      name: "Integrações com sistemas",
-      basic: "Básicas",
-      standard: "Avançadas",
-      enterprise: "Personalizadas",
-    },
-    {
-      name: "Relatórios e análises",
-      basic: "Básicos",
-      standard: "Avançados",
-      enterprise: "Personalizados",
-    },
-    {
-      name: "Suporte técnico",
-      basic: "Horário comercial",
-      standard: "Horário estendido",
-      enterprise: "24/7",
-    },
-  ];
+  const comparisonFeatures = [/*... seu array existente ...*/];
 
   return (
     <section className="container mx-auto py-16 px-4">
-      {/* Section Header */}
       <div className="flex flex-col items-center mb-16">
-        <h2 id="nossos-planos" className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] text-center leading-9 scroll-mt-[120px]">
+        <h2
+          id="nossos-planos"
+          className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] text-center leading-9 scroll-mt-[120px]"
+        >
           Nossos Planos
         </h2>
         <div className="w-20 h-1 bg-[#27a987] my-4"></div>
@@ -140,7 +91,6 @@ export const FeaturesSection = (): JSX.Element => {
         </p>
       </div>
 
-      {/* Pricing Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
         {plans.map((plan, index) => (
           <Card
@@ -209,17 +159,58 @@ export const FeaturesSection = (): JSX.Element => {
               </ul>
             </CardContent>
 
-            <CardFooter className="pt-4 pb-6">
-              <Button
-                className={`w-full ${plan.buttonColor} hover:opacity-90 text-white font-medium text-base font-['Poppins',Helvetica]`}
-              >
-                Fale Conosco
-              </Button>
-            </CardFooter>
+            {(() => {
+              const getIcon = (planName: string) => {
+                switch (planName) {
+                  case "Plano Padrão":
+                    return ClipboardList;
+                  case "Plano Empresarial":
+                    return Mail;
+                  default:
+                    return MessageCircle;
+                }
+              };
+
+              const Icon = getIcon(plan.name);
+
+              return (
+                <CardFooter className="pt-4 pb-6">
+                  <Button
+                    className={`
+                      w-full 
+                      ${plan.buttonColor} 
+                      hover:brightness-110 
+                      hover:scale-[1.07] 
+                      active:scale-100 
+                      transition-all 
+                      duration-1000
+                      ease-in-out
+                      text-white 
+                      text-base 
+                      font-medium 
+                      font-['Poppins',Helvetica] 
+                      py-3 
+                      px-4 
+                      rounded-md 
+                      shadow-sm
+                    `}
+                    aria-label={`Entrar em contato sobre o ${plan.name}`}
+                  >
+                    <span className="flex items-center justify-center gap-2">
+                      <Icon className="h-4 w-4" />
+                      {plan.name === "Plano Padrão"
+                        ? "Quero Este Plano"
+                        : plan.name === "Plano Empresarial"
+                        ? "Solicitar Proposta"
+                        : "Fale Conosco"}
+                    </span>
+                  </Button>
+                </CardFooter>
+              );
+            })()}
           </Card>
         ))}
       </div>
-
       {/* Comparison Table */}
       <Card className="rounded-xl shadow-sm overflow-hidden">
         <CardHeader className="bg-gray-50 border-b py-4">
