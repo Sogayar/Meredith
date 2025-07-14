@@ -6,7 +6,7 @@ import {
 } from "../../../../components/ui/avatar";
 import { Card, CardContent } from "../../../../components/ui/card";
 
-export const CallToActionSection = (): JSX.Element => {
+export const MedicalOpinionsSection = (): JSX.Element => {
   // Testimonial data for mapping
   const testimonials = [
     {

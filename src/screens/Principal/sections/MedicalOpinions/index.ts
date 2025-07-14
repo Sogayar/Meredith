@@ -1,0 +1,1 @@
+export { MedicalOpinionsSection } from "./MedicalOpinionsSection";

@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Separator } from "../../../../components/ui/separator";
 
-export const StatisticsSection = (): JSX.Element => {
+export const StatisticsAndAboutUsSection = (): JSX.Element => {
   // Statistics data
   const statistics = [
     {

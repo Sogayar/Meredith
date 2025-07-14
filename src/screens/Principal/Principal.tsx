@@ -1,12 +1,12 @@
 import React from "react";
-import { AboutUsSection } from "./sections/AboutUsSection";
+import { AboutUsSection } from "./sections/OurServices";
+import { FormSection } from "./sections/FormSection";
+import { MedicalOpinionsSection } from "./sections/MedicalOpinions";
 import { BlogSection } from "./sections/BlogSection";
-import { CallToActionSection } from "./sections/CallToActionSection";
-import { ContactSection } from "./sections/ContactSection";
 import { FeaturesSection } from "./sections/FeaturesSection/FeaturesSection";
 import { HeroSection } from "./sections/HeroSection";
 import { ServicesSection } from "./sections/ServicesSection";
-import { StatisticsSection } from "./sections/StatisticsSection";
+import { StatisticsAndAboutUsSection } from "./sections/StatisticsAndAboutUsSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection";
 import HeaderSection from "./sections/HeaderSection/HeaderSection";
 
@@ -17,14 +17,14 @@ export const Principal = (): JSX.Element => {
       <main className="w-full bg-gray-50">
         <HeroSection />
         <StatisticsSection />
-        <ServicesSection />
+        <StatisticsAndAboutUsSection />
         <AboutUsSection />
         <TestimonialsSection />
         <FeaturesSection />
-        <BlogSection />
+        <FormSection />
         {/* Aguardando atualizações para liberar Blog e Comentários dos médicos */}
-        {/* <CallToActionSection /> */}
-        {/* <ContactSection /> */}
+        {/* <MedicalOpinionsSection /> */}
+        {/* <BlogSection /> */}
       </main>
     </div>
   );
