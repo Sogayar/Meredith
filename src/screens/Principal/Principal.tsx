@@ -16,7 +16,7 @@ export const Principal = (): JSX.Element => {
       <HeaderSection />
       <main className="w-full bg-gray-50">
         <HeroSection />
-        <StatisticsSection />
+        {/* <StatisticsSection /> */}
         <StatisticsAndAboutUsSection />
         <OurServices />
         <TestimonialsSection />
