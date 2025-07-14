@@ -11,7 +11,7 @@ export const CallToActionSection = (): JSX.Element => {
   const testimonials = [
     {
       quote:
-        '"O HealthBot reduziu em 50% o tempo que gastávamos com agendamentos e lembretes. Nossa secretária agora consegue focar em tarefas mais importantes e o índice de faltas caiu drasticamente."',
+        '"A Meredith reduziu em 50% o tempo que gastávamos com agendamentos e lembretes. Nossa secretária agora consegue focar em tarefas mais importantes e o índice de faltas caiu drasticamente."',
       author: "Dr. João Silva",
       clinic: "Clínica Dermatológica Silva",
       avatar: "/assets/avatar-dr-joao.svg",

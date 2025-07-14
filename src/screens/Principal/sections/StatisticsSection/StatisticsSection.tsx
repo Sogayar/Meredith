@@ -14,8 +14,8 @@ export const StatisticsSection = (): JSX.Element => {
       description: "Taxa de satisfação dos pacientes",
     },
     {
-      value: "70%",
-      description: "Redução em faltas às consultas",
+      value: "60%",
+      description: "A mais de conversão dos pacientes em consulta",
     },
     {
       value: "300+",
