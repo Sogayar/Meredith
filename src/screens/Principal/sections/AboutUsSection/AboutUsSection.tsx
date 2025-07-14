@@ -18,7 +18,7 @@ export const AboutUsSection = (): JSX.Element => {
     },
     {
       title: "Treinamento",
-      description: "Treinamos sua equipe em poucos minutos.",
+      description: "Treinamos sua equipe e proporcionamos suporte necessário",
       image: "/assets/icon-training.png",
       alt: "Treinamento",
     },
