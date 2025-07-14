@@ -1,5 +1,5 @@
 import React from "react";
-import { AboutUsSection } from "./sections/OurServices";
+import { OurServices } from "./sections/OurServices";
 import { FormSection } from "./sections/FormSection";
 import { MedicalOpinionsSection } from "./sections/MedicalOpinions";
 import { BlogSection } from "./sections/BlogSection";
@@ -18,7 +18,7 @@ export const Principal = (): JSX.Element => {
         <HeroSection />
         <StatisticsSection />
         <StatisticsAndAboutUsSection />
-        <AboutUsSection />
+        <OurServices />
         <TestimonialsSection />
         <FeaturesSection />
         <FormSection />
