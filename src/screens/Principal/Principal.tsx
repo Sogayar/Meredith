@@ -21,8 +21,9 @@ export const Principal = (): JSX.Element => {
         <AboutUsSection />
         <TestimonialsSection />
         <FeaturesSection />
-        <BlogSection />
-        <CallToActionSection />
+        {/* Aguardando atualizações para liberar Blog e Comentários dos médicos */}
+        {/* <BlogSection /> */}
+        {/* <CallToActionSection /> */}
         <ContactSection />
       </main>
     </div>
