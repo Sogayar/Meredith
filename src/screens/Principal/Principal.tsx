@@ -8,7 +8,7 @@ import { HeroSection } from "./sections/HeroSection";
 import { ServicesSection } from "./sections/ServicesSection";
 import { StatisticsSection } from "./sections/StatisticsSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection";
-import HeaderSection from "./sections/HeaderSection/HeaderSection"; // ✔️
+import HeaderSection from "./sections/HeaderSection/HeaderSection";
 
 export const Principal = (): JSX.Element => {
   return (
@@ -21,10 +21,10 @@ export const Principal = (): JSX.Element => {
         <AboutUsSection />
         <TestimonialsSection />
         <FeaturesSection />
+        <BlogSection />
         {/* Aguardando atualizações para liberar Blog e Comentários dos médicos */}
-        {/* <BlogSection /> */}
         {/* <CallToActionSection /> */}
-        <ContactSection />
+        {/* <ContactSection /> */}
       </main>
     </div>
   );
