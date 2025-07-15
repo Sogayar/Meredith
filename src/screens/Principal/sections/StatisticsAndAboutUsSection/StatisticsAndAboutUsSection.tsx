@@ -1,27 +1,37 @@
 import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Separator } from "../../../../components/ui/separator";
+import { AnimatedCounter } from "../../../../components/effects/AnimatedCounter"; // ajuste o caminho conforme a sua estrutura
+
 
 export const StatisticsAndAboutUsSection = (): JSX.Element => {
   // Statistics data
   const statistics = [
-    {
-      value: "50%",
-      description: "Redução no tempo gasto com agendamentos",
-    },
-    {
-      value: "95%",
-      description: "Taxa de satisfação dos pacientes",
-    },
-    {
-      value: "60%",
-      description: "A mais de conversão dos pacientes em consulta",
-    },
-    {
-      value: "300+",
-      description: "Clínicas atendidas",
-    },
-  ];
+  {
+    value: 50,
+    suffix: "%",
+    duration: 2,
+    description: "Redução no tempo gasto com agendamentos",
+  },
+  {
+    value: 95,
+    suffix: "%",
+    duration: 4,
+    description: "Taxa de satisfação dos pacientes",
+  },
+  {
+    value: 60,
+    suffix: "%",
+    duration: 3,
+    description: "A mais de conversão dos pacientes em consulta",
+  },
+  {
+    value: 300,
+    suffix: "+",
+    duration: 20,
+    description: "Clínicas atendidas",
+  },
+];
 
   // Certification data
   const certifications = [
@@ -48,13 +58,14 @@ export const StatisticsAndAboutUsSection = (): JSX.Element => {
             {statistics.map((stat, index) => (
               <div key={index} className="flex flex-col items-center">
                 <div className="text-2xl lg:text-4xl font-bold text-[#0080df] mb-2 lg:mb-4">
-                  {stat.value}
+                  <AnimatedCounter to={stat.value} suffix={stat.suffix} duration={stat.duration}/>
                 </div>
                 <p className="text-gray-600 text-center text-sm lg:text-base">
                   {stat.description}
                 </p>
               </div>
             ))}
+
           </div>
         </div>
       </div>
