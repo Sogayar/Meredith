@@ -1,14 +1,14 @@
 import React from "react";
-import { AboutUsSection } from "./sections/AboutUsSection";
+import { OurServices } from "./sections/OurServices";
+import { FormSection } from "./sections/FormSection";
+import { MedicalOpinionsSection } from "./sections/MedicalOpinions";
 import { BlogSection } from "./sections/BlogSection";
-import { CallToActionSection } from "./sections/CallToActionSection";
-import { ContactSection } from "./sections/ContactSection";
 import { FeaturesSection } from "./sections/FeaturesSection/FeaturesSection";
 import { HeroSection } from "./sections/HeroSection";
 import { ServicesSection } from "./sections/ServicesSection";
-import { StatisticsSection } from "./sections/StatisticsSection";
+import { StatisticsAndAboutUsSection } from "./sections/StatisticsAndAboutUsSection";
 import { TestimonialsSection } from "./sections/TestimonialsSection";
-import HeaderSection from "./sections/HeaderSection/HeaderSection"; // ✔️
+import HeaderSection from "./sections/HeaderSection/HeaderSection";
 
 export const Principal = (): JSX.Element => {
   return (
@@ -16,14 +16,15 @@ export const Principal = (): JSX.Element => {
       <HeaderSection />
       <main className="w-full bg-gray-50">
         <HeroSection />
-        <StatisticsSection />
-        <ServicesSection />
-        <AboutUsSection />
+        {/* <StatisticsSection /> */}
+        <StatisticsAndAboutUsSection />
+        <OurServices />
         <TestimonialsSection />
         <FeaturesSection />
-        <BlogSection />
-        <CallToActionSection />
-        <ContactSection />
+        <FormSection />
+        {/* Aguardando atualizações para liberar Blog e Comentários dos médicos */}
+        {/* <MedicalOpinionsSection /> */}
+        {/* <BlogSection /> */}
       </main>
     </div>
   );

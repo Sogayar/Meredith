@@ -1,0 +1,428 @@
+import { SendIcon, MicIcon } from "lucide-react";
+import React, { useState, useRef } from "react";
+import InputMask from 'react-input-mask';
+import { createClient } from '@supabase/supabase-js';
+import { Button } from "../../../../components/ui/button";
+import { Card, CardContent } from "../../../../components/ui/card";
+import { Checkbox } from "../../../../components/ui/checkbox";
+import { Input } from "../../../../components/ui/input";
+
+const supabaseUrl = 'https://duiafwwwxztmtfvfczvc.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImR1aWFmd3d3eHp0bXRmdmZjenZjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTIxMDIyMDEsImV4cCI6MjA2NzY3ODIwMX0.T2Ckq1Vi8fonhmbe9UfXvsF_Z97qzDEsfLESVxFIQnI';
+const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export const FormSection = (): JSX.Element => {
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const phoneInputRef = useRef(null);
+  const [fullName, setFullName] = useState('');
+  const [fullNameError, setFullNameError] = useState(false);
+  const [email, setEmail] = useState('');
+  const [emailError, setEmailError] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [phoneValid, setPhoneValid] = useState(true);
+  const [phoneError, setPhoneError] = useState(false);
+  const [clinicName, setClinicName] = useState('');
+  const [clinicNameError, setClinicNameError] = useState(false);
+  const [areaDeAtuacao, setAreaDeAtuacao] = useState('');
+  const [areaDeAtuacaoError, setAreaDeAtuacaoError] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  const [termsError, setTermsError] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submissionError, setSubmissionError] = useState<string | null>(null);
+  const [isRecording, setIsRecording] = useState(false);
+  const [messageInput, setMessageInput] = useState('');
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const audioChunks = useRef<Blob[]>([]);
+
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmissionError(null);
+
+    let isValid = true;
+
+    if (!fullName) {
+      setFullNameError(true);
+      isValid = false;
+    } else {
+      setFullNameError(false);
+    }
+
+    if (!email || !/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
+      setEmailError(true);
+      isValid = false;
+    } else {
+      setEmailError(false);
+    }
+
+    if (!phone || !/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(phone)) {
+      setPhoneError(true);
+      isValid = false;
+    } else {
+      setPhoneError(false);
+    }
+
+    if (!clinicName) {
+      setClinicNameError(true);
+      isValid = false;
+    } else {
+      setClinicNameError(false);
+    }
+
+    if (!areaDeAtuacao) {
+      setAreaDeAtuacaoError(true);
+      isValid = false;
+    } else {
+      setAreaDeAtuacaoError(false);
+    }
+
+    if (!termsAccepted) {
+      setTermsError(true);
+      isValid = false;
+    } else {
+      setTermsError(false);
+    }
+
+    if (isValid) {
+      setIsSubmitting(true);
+      try {
+        const { data: existingSubmissions, error: existingSubmissionsError } = await supabase
+          .from('form_submissions')
+          .select('email')
+          .eq('email', email);
+
+        if (existingSubmissionsError) {
+            throw existingSubmissionsError;
+        }
+
+        if (existingSubmissions && existingSubmissions.length > 0) {
+          setSubmissionError('Este email já foi cadastrado.');
+          setIsSubmitting(false);
+          return;
+        }
+
+        const { data: formSubmitionData, error: formSubmitionError } = await supabase
+          .from('form_submissions')
+          .insert([
+            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, area_de_atuacao: areaDeAtuacao, terms_accepted: termsAccepted }
+          ]);
+
+        if (formSubmitionError) throw formSubmitionError;
+
+        const { data: leadsData, error: leadsError } = await supabase
+          .from('leads')
+          .insert([
+            { full_name: fullName, email: email, phone: phone, clinic_name: clinicName, area_de_atuacao: areaDeAtuacao, source: 'website_form' }
+          ]);
+
+        if (leadsError) throw leadsError;
+
+        console.log('Form Submitted and data saved to Supabase:', { formSubmitionData, leadsData });
+        setFormSubmitted(true);
+        console.log('Formulário enviado com sucesso!');
+
+        setFullName('');
+        setEmail('');
+        setPhone('');
+        setClinicName('');
+        setAreaDeAtuacao('');
+        setTermsAccepted(false);
+
+      } catch (error: any) {
+        console.error('Error submitting form to Supabase:', error.message);
+        setSubmissionError('Ocorreu um erro ao enviar o formulário. Por favor, tente novamente.');
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      console.log('Por favor, preencha todos os campos corretamente.');
+    }
+  };
+
+  const startRecording = async () => {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+      mediaRecorder.current = new MediaRecorder(stream);
+      mediaRecorder.current.ondataavailable = (event) => {
+        audioChunks.current.push(event.data);
+      };
+      mediaRecorder.current.onstop = async () => {
+        const audioBlob = new Blob(audioChunks.current, { type: 'audio/webm' });
+        // Here you would send the audioBlob to your backend for STT and N8N processing
+        console.log('Audio recorded:', audioBlob);
+        audioChunks.current = []; // Clear chunks for next recording
+      };
+      mediaRecorder.current.start();
+      setIsRecording(true);
+    } catch (error) {
+      console.error('Error accessing microphone:', error);
+    }
+  };
+
+  const stopRecording = () => {
+    if (mediaRecorder.current && mediaRecorder.current.state === 'recording') {
+      mediaRecorder.current.stop();
+      setIsRecording(false);
+    }
+  };
+
+  // Form field labels
+  const formFields = [
+    { id: "fullName", label: "Nome completo", placeholder: "Seu nome completo" },
+    { id: "email", label: "Email", placeholder: "Seu melhor email" },
+    { id: "phone", label: "Telefone", placeholder: "(00) 00000-0000" },
+    { id: "clinicName", label: "Nome da clínica", placeholder: "Nome da sua clínica" },
+    { id: "areaDeAtuacao", label: "Especialidade", placeholder: "Uma clinica de..." },
+  ];
+
+  // Chat messages data
+  const chatMessages = [
+    {
+      sender: "assistant",
+      content: [
+        "Olá! Sou o Meredith , assistente",
+        "virtual da Clínica Saúde Total.",
+        "Como posso ajudar você hoje?",
+      ],
+    },
+    {
+      sender: "user",
+      content: ["Olá, gostaria de agendar uma", "consulta."],
+    },
+    {
+      sender: "assistant",
+      content: [
+        "Claro! Para qual especialidade",
+        "você gostaria de agendar a",
+        "consulta?",
+      ],
+    },
+    {
+      sender: "user",
+      content: ["Dermatologia."],
+    },
+    {
+      sender: "assistant",
+      content: [
+        "Temos disponibilidade com a Dra.",
+        "Ana Silva nos seguintes horários:",
+        "Segunda-feira, 15/07 às 14:00",
+        "Terça-feira, 16/07 às 10:30",
+        "Quinta-feira, 18/07 às 16:00",
+        "Qual seria a melhor opção para",
+        "você?",
+      ],
+      hasBulletPoints: true,
+      bulletPointsStartIndex: 2,
+      bulletPointsEndIndex: 5,
+    },
+  ];
+
+  return (
+    <section className="w-full py-16 bg-gray-50">
+      <div className="container max-w-7xl mx-auto px-4">
+        <div className="flex flex-col lg:flex-row gap-8 lg:gap-16 items-stretch">
+          {/* Left side - Form */}
+          <div className="w-full lg:w-1/2 space-y-4">
+            <h2 id="teste-agora" className="font-bold text-3xl text-gray-800 font-['Poppins',Helvetica] scroll-mt-[120px]">
+              Teste Nosso Agente
+            </h2>
+
+            <div className="w-20 h-1 bg-[#27a987]" />
+
+            <p className="text-lg text-gray-600 font-['Poppins',Helvetica]">
+              Experimente como seria a interação de seus pacientes com nosso
+              agente de automação. Preencha o formulário e receba uma
+              demonstração gratuita! 
+            </p>
+
+            <div className="space-y-12 mt-8">
+              <form onSubmit={handleSubmit}>
+              {formFields.map((field) => (
+                <div key={field.id} className="space-y-2">
+                  <label
+                    htmlFor={field.id}
+                    className="block font-medium text-sm text-gray-700 font-['Poppins',Helvetica]"
+                  >
+                    {field.label}
+                  </label>
+                  {field.id === 'phone' ? (
+                    <InputMask
+                      mask="(99) 99999-9999"
+                      value={phone}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        setPhone(value);
+                        const phoneRegex = /^\(\d{2}\)\s\d{4,5}-\d{4}$/;
+                        setPhoneValid(phoneRegex.test(value));
+                      }}
+                      
+                    >
+                      {(inputProps: any) => (
+                        <Input
+                          {...inputProps}
+                          ref={phoneInputRef}
+                          id={field.id}
+                          className={`w-full h-[42px] rounded-lg border ${phoneError ? 'border-red-500' : 'border-gray-300'}`}
+                          placeholder={field.placeholder}
+                        />
+                      )}
+                    </InputMask>
+                  ) : (
+                    <Input
+                      id={field.id}
+                      className={`w-full h-[42px] rounded-lg border ${field.id === 'fullName' && fullNameError ? 'border-red-500' : field.id === 'email' && emailError ? 'border-red-500' : field.id === 'clinicName' && clinicNameError ? 'border-red-500' : field.id === 'areaDeAtuacao' && areaDeAtuacaoError ? 'border-red-500' : 'border-gray-300'}`}
+                      value={field.id === 'fullName' ? fullName : field.id === 'email' ? email : field.id === 'clinicName' ? clinicName : areaDeAtuacao}
+                      onChange={(e) => {
+                        if (field.id === 'fullName') setFullName(e.target.value);
+                        else if (field.id === 'email') setEmail(e.target.value);
+                        else if (field.id === 'clinicName') setClinicName(e.target.value);
+                        else if (field.id === 'areaDeAtuacao') setAreaDeAtuacao(e.target.value);
+                      }}
+                      placeholder={field.placeholder}
+                    />
+                  )}
+                  {field.id === 'fullName' && fullNameError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira seu nome completo.</p>
+                  )}
+                  {field.id === 'email' && emailError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira um email válido.</p>
+                  )}
+                  {field.id === 'phone' && phoneError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira um número de telefone válido.</p>
+                  )}
+                  {field.id === 'clinicName' && clinicNameError && (
+                    <p className="text-red-500 text-sm mt-1">Por favor, insira o nome da sua clínica.</p>
+                  )}
+                </div>
+              ))}
+
+              <div className="flex items-start space-x-3 mt-8">
+                <Checkbox
+                  id="terms"
+                  className={`mt-1 border-black border-[0.5px] rounded-[1px] ${termsError ? 'border-red-500' : ''}`}
+                  checked={termsAccepted}
+                  onCheckedChange={setTermsAccepted}
+                />
+                <div className="space-y-1">
+                  <label
+                    htmlFor="terms"
+                    className={`text-sm font-['Poppins',Helvetica] ${termsError ? 'text-red-500' : 'text-gray-600'}`}
+                  >
+                    Concordo que meus dados sejam usados para fins de marketing,
+                    conforme a{" "}
+                    <span className="text-[#0080df]">
+                      política de privacidade
+                    </span>
+                    .
+                  </label>
+                  {termsError && (
+                    <p className="text-red-500 text-sm mt-1">Você deve aceitar os termos de privacidade.</p>
+                  )}
+                </div>
+              </div>
+
+              <Button type="submit" className="w-full h-12 bg-[#0080df] hover:bg-[#0070c5] rounded-lg font-medium text-base font-['Poppins',Helvetica]" disabled={isSubmitting}>
+                {isSubmitting ? 'Enviando...' : 'Receber Demonstração'}
+              </Button>
+              {submissionError && (
+                <p className="text-red-500 text-sm mt-1">{submissionError}</p>
+              )}
+            </form>
+            </div>
+          </div>
+
+          {/* Right side - Chat demo */}
+          <div className={`w-full sm:w-[90%] md:w-[80%] lg:w-1/2 mx-auto ${/* !formSubmitted ? 'blur-sm pointer-events-none' : '' */ ''}`}> {/* LEMBRETE: Descomente esta linha para reativar o efeito de desfoque após o envio do formulário. */}
+            <Card className="shadow-[0px_10px_15px_#0000001a,0px_4px_6px_#0000001a] rounded-xl border-0 h-[70vh] lg:h-full">
+              <CardContent className="p-0 flex flex-col h-full">
+                {/* Chat header */}
+                <div className="p-6 border-b">
+                  <div className="flex items-center">
+                    <div className="w-10 h-10 bg-[#dcf3ff] rounded-full flex items-center justify-center">
+                      <img className="w-10 h-10" alt="Logo" src="/assets/logo-chat.svg" />
+                    </div>
+                    <div className="ml-3">
+                      <p className="font-medium text-base text-gray-800 font-['Poppins',Helvetica]">
+                        Meredith
+                      </p>
+                      <p className="text-xs text-gray-500 font-['Poppins',Helvetica]">
+                        Assistente virtual
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Chat messages */}
+                <div className="p-6 flex-1 max-h-[500px] overflow-y-auto">
+                  {chatMessages.map((message, index) => (
+                    <div
+                      key={index}
+                      className={`mb-4 ${
+                        message.sender === "user" ? "flex justify-end" : ""
+                      }`}
+                    >
+                      <div
+                        className={`max-w-[320px] p-4 rounded-lg ${
+                          message.sender === "assistant"
+                            ? "bg-[#dcf3ff]"
+                            : "bg-gray-100"
+                        }`}
+                      >
+                        {message.content.map((line, lineIndex) => {
+                          if (
+                            message.hasBulletPoints &&
+                            lineIndex >= message.bulletPointsStartIndex &&
+                            lineIndex <= message.bulletPointsEndIndex
+                          ) {
+                            return (
+                              <div key={lineIndex} className="ml-5 flex">
+                                <span className="font-normal text-base text-gray-800 font-['Poppins',Helvetica]">
+                                  {line}
+                                </span>
+                              </div>
+                            );
+                          }
+                          return (
+                            <p
+                              key={lineIndex}
+                              className="font-normal text-base text-gray-800 font-['Poppins',Helvetica]"
+                            >
+                              {line}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Chat input */}
+                <div className="p-6 pt-0 pb-2 border-t">
+                  <div className="flex">
+                    <Input
+                      className="rounded-r-none h-12 border-gray-300 font-['Poppins',Helvetica] text-base"
+                      placeholder="Digite sua mensagem..."
+                      disabled={!formSubmitted || isRecording}
+                    />
+                    <Button
+                      className="h-12 w-12 rounded-l-none bg-[#0080df] hover:bg-[#0070c5]"
+                      disabled={!formSubmitted}
+                      onClick={isRecording ? stopRecording : startRecording}
+                    >
+                      {isRecording ? (
+                        <MicIcon className="h-4 w-4 animate-pulse" />
+                      ) : (
+                        <SendIcon className="h-4 w-4" />
+                      )}
+                    </Button>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};

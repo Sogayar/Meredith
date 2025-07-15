@@ -2,7 +2,7 @@ import React from "react";
 import { Card, CardContent } from "../../../../components/ui/card";
 import { Separator } from "../../../../components/ui/separator";
 
-export const AboutUsSection = (): JSX.Element => {
+export const OurServices = (): JSX.Element => {
   const steps = [
     {
       title: "Análise",
@@ -18,7 +18,7 @@ export const AboutUsSection = (): JSX.Element => {
     },
     {
       title: "Treinamento",
-      description: "Treinamos sua equipe em poucos minutos.",
+      description: "Treinamos sua equipe e proporcionamos suporte necessário",
       image: "/assets/icon-training.png",
       alt: "Treinamento",
     },
