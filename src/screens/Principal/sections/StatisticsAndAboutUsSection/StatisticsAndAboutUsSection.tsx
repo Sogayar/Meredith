@@ -28,7 +28,7 @@ export const StatisticsAndAboutUsSection = (): JSX.Element => {
   {
     value: 300,
     suffix: "+",
-    duration: 20,
+    duration: 6,
     description: "Clínicas atendidas",
   },
 ];

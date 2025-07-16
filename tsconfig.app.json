@@ -22,7 +22,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
 
-    // ✅ Aqui começam os aliases:
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
