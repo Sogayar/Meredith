@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://truevanguard.com/meredith/sitemap.xml
