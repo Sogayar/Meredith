@@ -1,0 +1,52 @@
+
+name: Deploy Meredith to TrueVanguard
+
+on:
+  push:
+    branches:
+      - main # Ou sua branch padrão para Meredith
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Meredith Repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20' # Ou a versão do Node.js que seu projeto usa
+
+    - name: Install Dependencies
+      run: npm install
+
+    - name: Build Meredith Project
+      run: npm run build
+
+    - name: Deploy to TrueVanguard Server
+      uses: appleboy/scp-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        source: "dist/"
+        target: "/path/to/your/truevanguard/public/meredith" # IMPORTANTE: Substitua pelo caminho real em 
+      seu servidor
+        strip_components: 1 # Remove o próprio diretório 'dist', copia apenas seu conteúdo
+
+    - name: Clean up old files (optional, but recommended)
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SSH_HOST }}
+        username: ${{ secrets.SSH_USERNAME }}
+        key: ${{ secrets.SSH_PRIVATE_KEY }}
+        script: |
+          # Remova quaisquer arquivos antigos que não estejam mais no diretório dist
+          # Tenha muito cuidado com este comando! Certifique-se de que o caminho de destino esteja 
+      correto.
+          # rsync -av --delete /path/to/your/truevanguard/public/meredith/ 
+      /path/to/your/truevanguard/public/meredith/
+          echo "Limpeza de arquivos antigos ignorada por segurança. Implemente rsync --delete se 
+      necessário."
