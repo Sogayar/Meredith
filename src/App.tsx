@@ -1,5 +1,5 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Principal from './screens/Principal';
+import { Principal } from './screens/Principal';
 import Dashboard from './screens/Dashboard/Dashboard';
 
 export default function App() {
