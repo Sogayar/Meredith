@@ -7,11 +7,11 @@ const HeaderSection = () => {
 
   const navigationItems = [
     { label: "Início", href: "#" },
+    { label: "Nossos Serviços", href: "#nossos-servicos" },
     { label: "Sobre", href: "#sobre-nos" },
-    { label: "Como Funciona", href: "#nossos-servicos" },
     { label: "Planos", href: "#nossos-planos" },
-    { label: "Clientes", href: "#depoimentos" },
-    { label: "Blog", href: "#blog" },
+//    { label: "Clientes", href: "#depoimentos" },
+//    { label: "Blog", href: "#blog" },
   ];
 
   return (
