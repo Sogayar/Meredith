@@ -24,7 +24,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
-          <Route path="*" element={<NotFound />} />
+          <Route path="*" element={<NotFound />} /> {/* Essa joça aqui tem que ser o último ok? */}
         </Routes>
       </AuthProvider>
     </BrowserRouter>
