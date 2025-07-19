@@ -1,47 +1,59 @@
-// src/screens/TelaLogin/TelaLogin.tsx
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 
-export default function TelaLogin() {
+export default function SignIn() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
-  const [carregando, setCarregando] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const validarSenha = (senha: string) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+    return regex.test(senha);
+  };
+
+  const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
-    setCarregando(true);
     setErro("");
 
-    const { error } = await supabase.auth.signInWithPassword({
+    if (!email.includes("@") || !email.includes(".")) {
+      setErro("Digite um e-mail válido.");
+      return;
+    }
+
+    if (!validarSenha(senha)) {
+      setErro("A senha deve conter ao menos 8 caracteres, incluindo maiúsculas, minúsculas, números e símbolos.");
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({
       email,
       password: senha,
     });
 
-    setCarregando(false);
+    setLoading(false);
 
     if (error) {
-      setErro("Email ou senha inválidos.");
+      setErro(error.message);
     } else {
-      navigate("/dashboard");
+      alert("Cadastro realizado com sucesso! Verifique seu e-mail para confirmar.");
+      navigate("/login");
     }
   };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-50 px-4">
       <form
-        onSubmit={handleSubmit}
+        onSubmit={handleSignUp}
         className="w-full max-w-sm bg-white p-6 rounded-2xl shadow-xl space-y-4"
       >
-        <h2 className="text-2xl font-bold text-center text-gray-800">Acesso Restrito</h2>
+        <h2 className="text-2xl font-bold text-center text-gray-800">Criar Conta</h2>
 
-        {erro && (
-          <p className="text-sm text-red-600 text-center font-medium bg-red-50 border border-red-200 rounded p-2">
-            {erro}
-          </p>
-        )}
+        {erro && <p className="text-red-600 text-sm text-center">{erro}</p>}
 
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -73,10 +85,10 @@ export default function TelaLogin() {
 
         <button
           type="submit"
-          disabled={carregando}
-          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition font-semibold disabled:opacity-50"
+          disabled={loading}
+          className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition font-semibold disabled:opacity-60"
         >
-          {carregando ? "Entrando..." : "Entrar"}
+          {loading ? "Cadastrando..." : "Cadastrar"}
         </button>
       </form>
     </div>

@@ -4,6 +4,8 @@ import { Principal } from "./screens/Principal";
 import Dashboard from "./screens/Dashboard/Dashboard";
 import TelaLogin from "./screens/TelaLogin/TelaLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
+import SignIn from "./screens/SignIn/SignIn";
+
 
 export default function App() {
   return (
@@ -11,6 +13,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Principal />} />
         <Route path="/login" element={<TelaLogin />} />
+        <Route path="/signup" element={<SignIn />} />
         <Route
           path="/dashboard"
           element={
