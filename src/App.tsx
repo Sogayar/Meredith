@@ -5,7 +5,8 @@ import Dashboard from "./screens/Dashboard/Dashboard";
 import TelaLogin from "./screens/TelaLogin/TelaLogin";
 import ProtectedRoute from "./components/security/ProtectedRoute";
 import SignIn from "./screens/SignIn/SignIn";
-import { AuthProvider } from "./components/security/AuthProvider"; // ✅ Importado corretamente
+import NotFound from "./screens/NotFound/NotFound";
+import { AuthProvider } from "./components/security/AuthProvider"; 
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
               </ProtectedRoute>
             }
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </AuthProvider>
     </BrowserRouter>
