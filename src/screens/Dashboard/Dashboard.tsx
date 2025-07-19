@@ -1,7 +1,10 @@
 // src/screens/Dashboard/Dashboard.tsx
 import { useEffect } from "react";
+<<<<<<< HEAD
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/lib/supabaseClient";
+=======
+>>>>>>> 75e7ba204b6c25e586aac479cc38522b1f988a72
 import {
   LineChart,
   Line,
@@ -9,9 +12,16 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
+<<<<<<< HEAD
   ResponsiveContainer,
 } from "recharts";
 
+=======
+  ResponsiveContainer
+} from "recharts";
+
+
+>>>>>>> 75e7ba204b6c25e586aac479cc38522b1f988a72
 const agendamentosData = [
   { dia: "Seg", agendamentos: 4 },
   { dia: "Ter", agendamentos: 6 },
@@ -23,12 +33,16 @@ const agendamentosData = [
 ];
 
 export default function Dashboard() {
+<<<<<<< HEAD
   const navigate = useNavigate();
 
+=======
+>>>>>>> 75e7ba204b6c25e586aac479cc38522b1f988a72
   useEffect(() => {
     document.title = "Dashboard | Meredith";
   }, []);
 
+<<<<<<< HEAD
   const handleLogout = async () => {
     await supabase.auth.signOut();
     navigate("/login");
@@ -84,6 +98,46 @@ export default function Dashboard() {
             />
           </LineChart>
         </ResponsiveContainer>
+=======
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 to-white p-8">
+      <h1 className="text-4xl font-bold text-gray-800 mb-2">Painel da Meredith</h1>
+      <p className="text-gray-600 mb-6">Monitoramento em tempo real do atendimento automatizado</p>
+
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="bg-white border border-gray-200 rounded-2xl shadow p-6">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">👥 Novos Clientes</h2>
+          <p className="text-3xl font-bold text-blue-600">28</p>
+          <p className="text-sm text-gray-400">nos últimos 7 dias</p>
+        </div>
+        <div className="bg-white border border-gray-200 rounded-2xl shadow p-6">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">📆 Agendamentos</h2>
+          <p className="text-3xl font-bold text-green-600">33</p>
+          <p className="text-sm text-gray-400">total da semana</p>
+        </div>
+        <div className="bg-white border border-gray-200 rounded-2xl shadow p-6">
+          <h2 className="text-lg font-semibold text-gray-700 mb-2">📨 Mensagens</h2>
+          <p className="text-3xl font-bold text-purple-600">137</p>
+          <p className="text-sm text-gray-400">interações automáticas</p>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-2xl shadow border border-gray-200 p-6">
+        <h2 className="text-lg font-semibold text-gray-700 mb-4">📊 Agendamentos por dia</h2>
+        <ResponsiveContainer width="100%" height={300}>
+          {
+            (
+              <LineChart data={agendamentosData} margin={{ top: 5, right: 30, left: 0, bottom: 0 }}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="dia" />
+                <YAxis />
+                <Tooltip />
+                <Line type="monotone" dataKey="agendamentos" stroke="#3b82f6" strokeWidth={2} activeDot={{ r: 6 }} />
+              </LineChart>
+            ) as React.ReactElement
+          }
+</ResponsiveContainer>
+>>>>>>> 75e7ba204b6c25e586aac479cc38522b1f988a72
       </div>
     </div>
   );
