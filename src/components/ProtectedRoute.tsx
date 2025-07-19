@@ -23,5 +23,5 @@ export default function ProtectedRoute({ children }: ProtectedRouteProps) {
 
   if (isAuthenticated === null) return null; // Ou um loader/spinner
 
-  return isAuthenticated ? children : <Navigate to="/meredith/login" />;
+  return isAuthenticated ? children : <Navigate to="/login" />;
 }
