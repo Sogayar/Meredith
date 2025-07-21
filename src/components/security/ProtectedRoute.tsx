@@ -1,27 +1,37 @@
-// src/components/ProtectedRoute.tsx
-import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { supabase } from "../../lib/supabaseClient";
+// src/components/security/ProtectedRoute.tsx
+import { useEffect, useState } from "react"
+import { Navigate } from "react-router-dom"
+import { supabase } from "@/lib/supabaseClient"
+import LoadingScreen from "@/components/effects/LoadingScreen"
 
 interface ProtectedRouteProps {
-  children: JSX.Element;
+  children: JSX.Element
 }
 
 export default function ProtectedRoute({ children }: ProtectedRouteProps) {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null)
 
   useEffect(() => {
-    const checkUser = async () => {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession();
-      setIsAuthenticated(!!session);
-    };
+    const checkSession = async () => {
+      const { data } = await supabase.auth.getSession()
+      setIsAuthenticated(!!data.session)
+    }
 
-    checkUser();
-  }, []);
+    checkSession()
 
-  if (isAuthenticated === null) return null; // Ou um loader/spinner
+    // Escuta alterações na autenticação (logout, expiração, refresh)
+    const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+      setIsAuthenticated(!!session)
+    })
 
-  return isAuthenticated ? children : <Navigate to="/login" />;
+    return () => {
+      listener.subscription.unsubscribe()
+    }
+  }, [])
+
+  if (isAuthenticated === null) {
+    return <LoadingScreen />
+  }
+
+  return isAuthenticated ? children : <Navigate to="/login" replace />
 }
