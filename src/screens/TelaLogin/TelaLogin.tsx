@@ -39,6 +39,23 @@ export default function TelaLogin() {
     }
   };
 
+  const handleResetPassword = async () => {
+    if (!email) {
+      toast.error("Informe seu e-mail para redefinir a senha.");
+      return;
+    }
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}/reset-password` // ajuste essa rota se necessário
+    });
+
+    if (error) {
+      toast.error("Erro ao enviar link de recuperação.");
+    } else {
+      toast.success("Link de redefinição enviado para seu e-mail.");
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0080df] via-[#005694] to-[#003d6b] flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background Pattern */}
@@ -127,6 +144,15 @@ export default function TelaLogin() {
                   ) : (
                     <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
                   )}
+                </button>
+              </div>
+              <div className="text-right">
+                <button
+                  type="button"
+                  onClick={handleResetPassword}
+                  className="text-xs text-[#0080df] hover:text-[#005694] font-medium mt-1"
+                >
+                  Esqueci minha senha
                 </button>
               </div>
             </div>
