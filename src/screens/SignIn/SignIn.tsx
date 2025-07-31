@@ -92,6 +92,7 @@ export default function SignIn() {
 
           <div className="space-y-2">
             <label htmlFor="nome" className="block text-sm font-medium text-gray-700">Nome completo</label>
+            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               id="nome"
               type="text"
@@ -135,6 +136,7 @@ export default function SignIn() {
 
           <div className="space-y-2">
             <label htmlFor="confirmar" className="block text-sm font-medium text-gray-700">Confirmar Senha</label>
+            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <input
               id="confirmar"
               type="password"
