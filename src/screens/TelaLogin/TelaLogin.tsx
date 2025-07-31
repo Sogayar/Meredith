@@ -3,6 +3,7 @@ import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function TelaLogin() {
   const [email, setEmail] = useState("");
@@ -14,6 +15,7 @@ export default function TelaLogin() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (carregando) return;
     setCarregando(true);
     setErro("");
 
@@ -22,11 +24,17 @@ export default function TelaLogin() {
       password: senha,
     });
 
+    setSenha(""); // limpeza de segurança
     setCarregando(false);
 
     if (error) {
-      setErro("Email ou senha inválidos.");
+      setErro(
+        error.message === "Invalid login credentials"
+          ? "E-mail ou senha inválidos."
+          : "Erro ao tentar entrar. Tente novamente."
+      );
     } else {
+      toast.success("Login realizado com sucesso!");
       navigate("/dashboard");
     }
   };
@@ -34,24 +42,20 @@ export default function TelaLogin() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0080df] via-[#005694] to-[#003d6b] flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background Pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full blur-xl"></div>
-        <div className="absolute top-40 right-32 w-24 h-24 bg-cyan-300 rounded-full blur-lg"></div>
-        <div className="absolute bottom-32 left-1/4 w-40 h-40 bg-blue-200 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-20 right-20 w-28 h-28 bg-white rounded-full blur-lg"></div>
+      <div className="absolute inset-0 opacity-10 animate-pulse">
+        <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full blur-xl" />
+        <div className="absolute top-40 right-32 w-24 h-24 bg-cyan-300 rounded-full blur-lg animate-float" />
+        <div className="absolute bottom-32 left-1/4 w-40 h-40 bg-blue-200 rounded-full blur-2xl animate-float" />
+        <div className="absolute bottom-20 right-20 w-28 h-28 bg-white rounded-full blur-lg animate-float" />
       </div>
 
       {/* Login Card */}
-      <div className="relative z-10 w-full max-w-md">
+      <div className="relative z-10 w-full max-w-md max-h-screen overflow-auto">
         <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
           {/* Logo and Header */}
           <div className="text-center mb-8">
             <div className="mx-auto w-16 h-16 bg-gradient-to-r from-[#0080df] to-[#005694] rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-              <img 
-                src="/assets/logo-chat.svg" 
-                alt="Meredith Logo" 
-                className="w-8 h-8"
-              />
+              <img src="/assets/logo-chat.svg" alt="Meredith Logo" className="w-8 h-8" />
             </div>
             <h1 className="text-2xl font-bold text-gray-800 mb-2">Bem-vindo de volta!</h1>
             <p className="text-gray-600 text-sm">Acesse sua conta da Meredith</p>
@@ -82,6 +86,8 @@ export default function TelaLogin() {
                   id="email"
                   type="email"
                   required
+                  aria-label="Endereço de e-mail"
+                  autoComplete="email"
                   className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
                   placeholder="seu@email.com"
                   value={email}
@@ -103,6 +109,8 @@ export default function TelaLogin() {
                   id="senha"
                   type={mostrarSenha ? "text" : "password"}
                   required
+                  aria-label="Senha"
+                  autoComplete="current-password"
                   className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
                   placeholder="••••••••"
                   value={senha}
@@ -110,6 +118,7 @@ export default function TelaLogin() {
                 />
                 <button
                   type="button"
+                  aria-label={mostrarSenha ? "Esconder senha" : "Mostrar senha"}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center"
                   onClick={() => setMostrarSenha(!mostrarSenha)}
                 >
@@ -145,18 +154,18 @@ export default function TelaLogin() {
           {/* Footer Links */}
           <div className="mt-8 text-center space-y-4">
             <div className="text-sm text-gray-600">
-              Não tem uma conta?{" "}
-              <Link 
-                to="/signup" 
+              Não tem uma conta? {" "}
+              <Link
+                to="/signup"
                 className="font-medium text-[#0080df] hover:text-[#0070c5] transition-colors duration-200"
               >
                 Criar conta
               </Link>
             </div>
-            
+
             <div className="pt-4 border-t border-gray-200">
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className="text-sm text-gray-500 hover:text-gray-700 transition-colors duration-200"
               >
                 ← Voltar ao site
