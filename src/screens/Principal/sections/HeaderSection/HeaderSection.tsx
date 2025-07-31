@@ -70,11 +70,12 @@ const HeaderSection = () => {
         </a>
       ))}
 
-      <Link to="/login">
-        <Button className="bg-[#0080df] text-white px-4 h-10 font-poppins">
+      <Link to="/login" className="block w-full mt-2">
+        <Button className="w-full bg-[#0080df] text-white py-2 font-poppins rounded">
           Entrar
         </Button>
       </Link>
+
     </div>
   )}
 </header>
