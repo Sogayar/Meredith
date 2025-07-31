@@ -104,7 +104,7 @@ export const HeroSection = (): JSX.Element => {
         </p>
         <div className="mt-10">
           <button className="bg-white text-blue-700 hover:bg-blue-100 font-semibold px-6 py-3 rounded-full shadow-md transition-all">
-            Use Agora, É Grátis
+            <a href="#teste-agora">Use Agora, É Grátis</a>
           </button>
         </div>
       </div>
