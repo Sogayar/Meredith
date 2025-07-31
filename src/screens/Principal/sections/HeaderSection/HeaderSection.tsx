@@ -70,9 +70,11 @@ const HeaderSection = () => {
         </a>
       ))}
 
-      <Button className="w-full bg-[#0080df] text-white h-10 font-poppins">
-        <a href="#teste-agora" onClick={() => setMenuOpen(false)}>Teste Agora</a>
-      </Button>
+      <Link to="/login">
+        <Button className="bg-[#0080df] text-white px-4 h-10 font-poppins">
+          Entrar
+        </Button>
+      </Link>
     </div>
   )}
 </header>
