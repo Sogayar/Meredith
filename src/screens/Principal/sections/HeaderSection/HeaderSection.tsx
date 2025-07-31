@@ -41,7 +41,7 @@ const HeaderSection = () => {
 
       {/* Botão Desktop */}
       <Button className="bg-[#0080df] text-white px-4 h-10 font-poppins">
-        <a href="#teste-agora">Teste Agora</a>
+        <a href="#teste-agora">Entrar</a>
       </Button>
     </div>
 
