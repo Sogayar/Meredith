@@ -1,12 +1,16 @@
 // src/screens/SignIn/SignIn.tsx
 import { useState } from "react";
 import { supabase } from "@/lib/supabaseClient";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { Mail, Lock } from "lucide-react";
 
 export default function SignIn() {
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [confirmarSenha, setConfirmarSenha] = useState("");
+  const [aceitouTermos, setAceitouTermos] = useState(false);
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -20,7 +24,9 @@ export default function SignIn() {
     e.preventDefault();
     setErro("");
 
-    if (!email.includes("@") || !email.includes(".")) {
+    const normalizedEmail = email.trim().toLowerCase();
+
+    if (!normalizedEmail.includes("@") || !normalizedEmail.includes(".")) {
       setErro("Digite um e-mail válido.");
       return;
     }
@@ -30,13 +36,24 @@ export default function SignIn() {
       return;
     }
 
+    if (senha !== confirmarSenha) {
+      setErro("As senhas não coincidem.");
+      return;
+    }
+
+    if (!aceitouTermos) {
+      setErro("Você deve aceitar os termos de uso para continuar.");
+      return;
+    }
+
     setLoading(true);
     const { error } = await supabase.auth.signUp({
-      email,
+      email: normalizedEmail,
       password: senha,
     });
     setLoading(false);
     setSenha("");
+    setConfirmarSenha("");
 
     if (error) {
       setErro(error.message);
@@ -73,33 +90,83 @@ export default function SignIn() {
 
           <form onSubmit={handleSignUp} className="space-y-6">
             <div className="space-y-2">
+              <label htmlFor="nome" className="block text-sm font-medium text-gray-700">Nome completo</label>
+              <input
+                id="nome"
+                type="text"
+                required
+                className="block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
+
+            <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 E-mail
               </label>
-              <input
-                id="email"
-                type="email"
-                autoComplete="email"
-                required
-                className="block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Mail className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </div>
             </div>
 
             <div className="space-y-2">
               <label htmlFor="senha" className="block text-sm font-medium text-gray-700">
                 Senha
               </label>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <Lock className="h-5 w-5 text-gray-400" />
+                </div>
+                <input
+                  id="senha"
+                  type="password"
+                  autoComplete="new-password"
+                  required
+                  className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl shadow-sm text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                />
+              </div>
+              <p className="text-xs text-gray-500">Use pelo menos 8 caracteres, incluindo letra maiúscula, número e símbolo.</p>
+            </div>
+
+            <div className="space-y-2">
+              <label htmlFor="confirmarSenha" className="block text-sm font-medium text-gray-700">
+                Confirmar Senha
+              </label>
               <input
-                id="senha"
+                id="confirmarSenha"
                 type="password"
-                autoComplete="new-password"
                 required
                 className="block w-full px-3 py-3 border border-gray-300 rounded-xl shadow-sm text-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-[#0080df] focus:border-transparent transition-all duration-200"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
+                value={confirmarSenha}
+                onChange={(e) => setConfirmarSenha(e.target.value)}
               />
+            </div>
+
+            <div className="flex items-start text-sm text-gray-600">
+              <input
+                id="termos"
+                type="checkbox"
+                checked={aceitouTermos}
+                onChange={(e) => setAceitouTermos(e.target.checked)}
+                className="mr-2 mt-1 rounded border-gray-300 text-[#0080df] focus:ring-[#0080df]"
+              />
+              <label htmlFor="termos">
+                Eu li e aceito os <a href="#" className="underline hover:text-[#005694]">termos de uso</a> da Meredith.
+              </label>
             </div>
 
             <button
@@ -107,8 +174,25 @@ export default function SignIn() {
               disabled={loading}
               className="w-full py-3 px-4 border border-transparent text-sm font-medium rounded-xl text-white bg-gradient-to-r from-[#0080df] to-[#005694] hover:from-[#0070c5] hover:to-[#004a7c] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#0080df] disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]"
             >
-              {loading ? "Cadastrando..." : "Cadastrar"}
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="animate-spin h-4 w-4 border-b-2 border-white mr-2 rounded-full" />
+                  Cadastrando...
+                </div>
+              ) : (
+                "Cadastrar"
+              )}
             </button>
+
+            <p className="text-sm text-center text-gray-600 mt-2">
+              Já tem uma conta? {" "}
+              <Link
+                to="/login"
+                className="text-[#0080df] hover:text-[#005694] font-medium underline underline-offset-4 transition-all duration-200"
+              >
+                Entrar
+              </Link>
+            </p>
           </form>
         </div>
 
