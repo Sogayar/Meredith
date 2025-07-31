@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "../../../../components/ui/button"; // Caminho relativo ajustado
 import { Menu, X } from "lucide-react"; // Certifique-se de ter instalado: npm install lucide-react
+import { Link } from "react-router-dom";
 
 const HeaderSection = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -40,9 +41,11 @@ const HeaderSection = () => {
       </nav>
 
       {/* Botão Desktop */}
-      <Button className="bg-[#0080df] text-white px-4 h-10 font-poppins">
-        <a href="#teste-agora">Entrar</a>
-      </Button>
+      <Link to="/login">
+        <Button className="bg-[#0080df] text-white px-4 h-10 font-poppins">
+          Entrar
+        </Button>
+      </Link>
     </div>
 
     {/* Menu hamburguer - mobile */}
