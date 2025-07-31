@@ -146,15 +146,16 @@ export default function TelaLogin() {
                   )}
                 </button>
               </div>
-              <div className="text-right">
-                <button
-                  type="button"
-                  onClick={handleResetPassword}
-                  className="text-xs text-[#0080df] hover:text-[#005694] font-medium mt-1"
-                >
-                  Esqueci minha senha
-                </button>
-              </div>
+                <div className="text-left">
+                  <button
+                    type="button"
+                    onClick={handleResetPassword}
+                    className="text-xs text-[#0080df] hover:text-[#005694] font-medium mt-1 hover:underline underline-offset-4 transition-all duration-200 transform hover:scale-[1.03] cursor-pointer"
+                  >
+                    Esqueci minha senha
+                  </button>
+                </div>
+
             </div>
 
             {/* Login Button */}
