@@ -92,15 +92,17 @@ export default function SignIn() {
 
           <div className="space-y-2">
             <label htmlFor="nome" className="block text-sm font-medium text-gray-700">Nome completo</label>
-            <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              id="nome"
-              type="text"
-              required
-              className="w-full px-3 py-2 pl-4 border border-gray-300 rounded-xl shadow-sm text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-            />
+            <div className="relative">
+              <User className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                id="nome"
+                type="text"
+                required
+                className="w-full px-3 py-2 pl-10 border border-gray-300 rounded-xl shadow-sm text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+              />
+            </div>
           </div>
 
           <div className="space-y-2">
@@ -136,15 +138,18 @@ export default function SignIn() {
 
           <div className="space-y-2">
             <label htmlFor="confirmar" className="block text-sm font-medium text-gray-700">Confirmar Senha</label>
-            <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <input
-              id="confirmar"
-              type="password"
-              required
-              className="w-full px-3 py-2 border border-gray-300 rounded-xl shadow-sm text-sm focus:ring-2 focus:ring-blue-500 outline-none"
-              value={confirmarSenha}
-              onChange={(e) => setConfirmarSenha(e.target.value)}
-            />
+            <div className="relative">
+              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <input
+                id="confirmar"
+                type="password"
+                required
+                className="w-full px-3 py-2 pl-10 border border-gray-300 rounded-xl shadow-sm text-sm focus:ring-2 focus:ring-blue-500 outline-none"
+                value={confirmarSenha}
+                onChange={(e) => setConfirmarSenha(e.target.value)}
+              />
+            </div>
+
           </div>
 
           <div className="flex items-center gap-2 text-sm">
