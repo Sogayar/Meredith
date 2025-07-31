@@ -72,7 +72,7 @@ export default function TelaLogin() {
           {/* Logo and Header */}
           <div className="text-center mb-8">
             <div className="mx-auto w-16 h-16 bg-gradient-to-r from-[#0080df] to-[#005694] rounded-2xl flex items-center justify-center mb-4 shadow-lg">
-              <img src="/assets/logo-chat.svg" alt="Meredith Logo" className="w-8 h-8" />
+              <img src="/assets/avatar-dra-sofia.svg" alt="User Logo" className="w-8 h-8" />
             </div>
             <h1 className="text-2xl font-bold text-gray-800 mb-2">Bem-vindo de volta!</h1>
             <p className="text-gray-600 text-sm">Acesse sua conta da Meredith</p>
