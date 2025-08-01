@@ -1,6 +1,12 @@
 // src/screens/Dashboard/sections/Sidebar.tsx
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { CheckCircle, AlertCircle, XCircle, Activity } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  CheckCircle,
+  AlertCircle,
+  XCircle,
+  Activity,
+} from "lucide-react";
 import { useState } from "react";
 
 interface MenuItem {
@@ -19,8 +25,6 @@ interface SidebarProps {
 }
 
 export default function Sidebar({
-  sidebarOpen,
-  setSidebarOpen,
   sidebarExpanded,
   setSidebarExpanded,
   statusIA,
@@ -28,50 +32,64 @@ export default function Sidebar({
 }: SidebarProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case "online": return "bg-green-400";
-      case "instavel": return "bg-yellow-400";
-      case "offline": return "bg-red-400";
-      default: return "bg-gray-400";
+      case "online":
+        return "bg-green-400";
+      case "instavel":
+        return "bg-yellow-400";
+      case "offline":
+        return "bg-red-400";
+      default:
+        return "bg-gray-400";
     }
   };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case "online": return CheckCircle;
-      case "instavel": return AlertCircle;
-      case "offline": return XCircle;
-      default: return Activity;
+      case "online":
+        return CheckCircle;
+      case "instavel":
+        return AlertCircle;
+      case "offline":
+        return XCircle;
+      default:
+        return Activity;
     }
   };
 
   return (
-    <div className={`fixed inset-y-0 left-0 z-50 ${
-      sidebarExpanded ? "w-64" : "w-20"
-    } bg-white/95 backdrop-blur-md border-r border-white/20 shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0`}>
-      <div className="flex items-center justify-between p-6 border-b border-gray-200">
-        <div className="flex items-center">
-          <div className="w-10 h-10 bg-gradient-to-r from-[#0080df] to-[#005694] rounded-xl flex items-center justify-center shadow-lg">
-            <img src="/assets/avatar-dra-sofia.svg" alt="Meredith" className="w-6 h-6" />
-          </div>
-          {sidebarExpanded && <span className="ml-3 text-lg font-bold text-gray-800">Meredith</span>}
+    <aside
+      className={`relative h-screen transition-all duration-300 bg-white/95 backdrop-blur-md border-r border-white/20 shadow-lg ${
+        sidebarExpanded ? "w-64" : "w-20"
+      }`}
+    >
+      {/* Logo + Toggle */}
+      <div className="flex flex-col items-center py-6">
+        <div className="w-12 h-12 bg-gradient-to-r from-[#0080df] to-[#005694] rounded-xl flex items-center justify-center shadow-lg">
+          <img
+            src="/assets/avatar-dra-sofia.svg"
+            alt="Meredith"
+            className="w-6 h-6"
+          />
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setSidebarExpanded(!sidebarExpanded)}
-            className="p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            {sidebarExpanded ? <ChevronLeft className="w-5 h-5" /> : <ChevronRight className="w-5 h-5" />}
-          </button>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="lg:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
-          >
-            <X className="w-5 h-5" />
-          </button>
-        </div>
+
+        {sidebarExpanded && (
+          <span className="mt-3 text-lg font-bold text-gray-800">Meredith</span>
+        )}
+
+        <button
+          onClick={() => setSidebarExpanded(!sidebarExpanded)}
+          className="mt-6 p-2 rounded-lg hover:bg-gray-100 transition-colors"
+        >
+          {sidebarExpanded ? (
+            <ChevronLeft className="w-5 h-5" />
+          ) : (
+            <ChevronRight className="w-5 h-5" />
+          )}
+        </button>
       </div>
 
-      <nav className="p-4 space-y-2">
+      {/* Menu Items */}
+      <nav className="p-2 space-y-2">
         {menuItems.map((item, index) => (
           <button
             key={index}
@@ -87,29 +105,25 @@ export default function Sidebar({
         ))}
       </nav>
 
-      {/* Status da IA */}
-      <div className="absolute bottom-6 left-4 right-4">
-        <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-gray-700">Status da IA</span>
+      {/* IA Status */}
+    <div className="absolute bottom-4 left-9">
+        <div className="flex items-center space-x-2">
+            {/* Ícone de status colorido com animação */}
             <div className={`w-3 h-3 rounded-full ${getStatusColor(statusIA)} animate-pulse`} />
-          </div>
-          <div className="flex items-center text-xs text-gray-500">
-            {(() => {
-              const StatusIcon = getStatusIcon(statusIA);
-              return <StatusIcon className="w-4 h-4 mr-2" />;
-            })()}
-            <span>
-              {statusIA === "online" && "Operando normalmente"}
-              {statusIA === "instavel" && "Conexão instável"}
-              {statusIA === "offline" && "Fora do ar"}
-            </span>
-          </div>
-          <div className="text-xs text-gray-400 mt-1">
-            Última interação: há 3 min, via WhatsApp
-          </div>
+
+                {/* Texto só aparece se a sidebar estiver expandida */}
+                {sidebarExpanded && (
+                <div className="text-sm text-gray-700 leading-tight">
+                    <p className="font-medium">Status da IA</p>
+                    <p>Operando normalmente</p>
+                    <p className="text-xs text-gray-500">
+                    Última interação: há 3 min, via WhatsApp
+                    </p>
+                </div>
+            )}
         </div>
-      </div>
     </div>
+
+    </aside>
   );
 }
