@@ -4,6 +4,7 @@ import { supabase } from "@/lib/supabaseClient";
 import { useNavigate, Link } from "react-router-dom";
 import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react";
 import toast from "react-hot-toast";
+import ResetPasswordModal from "@/components/security/ResetPasswordModal";
 
 export default function TelaLogin() {
   const [email, setEmail] = useState("");
@@ -11,6 +12,8 @@ export default function TelaLogin() {
   const [erro, setErro] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [mostrarModalReset, setMostrarModalReset] = useState(false);
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -24,7 +27,7 @@ export default function TelaLogin() {
       password: senha,
     });
 
-    setSenha(""); // limpeza de segurança
+    setSenha(""); 
     setCarregando(false);
 
     if (error) {
@@ -39,26 +42,8 @@ export default function TelaLogin() {
     }
   };
 
-  const handleResetPassword = async () => {
-    if (!email) {
-      toast.error("Informe seu e-mail para redefinir a senha.");
-      return;
-    }
-
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: `${window.location.origin}/reset-password` // ajuste essa rota se necessário
-    });
-
-    if (error) {
-      toast.error("Erro ao enviar link de recuperação.");
-    } else {
-      toast.success("Link de redefinição enviado para seu e-mail.");
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#0080df] via-[#005694] to-[#003d6b] flex items-center justify-center px-4 relative overflow-hidden">
-      {/* Background Pattern */}
       <div className="absolute inset-0 opacity-10 animate-pulse">
         <div className="absolute top-20 left-20 w-32 h-32 bg-white rounded-full blur-xl" />
         <div className="absolute top-40 right-32 w-24 h-24 bg-cyan-300 rounded-full blur-lg animate-float" />
@@ -66,10 +51,8 @@ export default function TelaLogin() {
         <div className="absolute bottom-20 right-20 w-28 h-28 bg-white rounded-full blur-lg animate-float" />
       </div>
 
-      {/* Login Card */}
       <div className="relative z-10 w-full max-w-md max-h-screen overflow-auto">
         <div className="bg-white/95 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
-          {/* Logo and Header */}
           <div className="text-center mb-8">
             <div className="mx-auto w-16 h-16 bg-gradient-to-r from-[#0080df] to-[#005694] rounded-2xl flex items-center justify-center mb-4 shadow-lg">
               <img src="/assets/avatar-dra-sofia.svg" alt="User Logo" className="w-8 h-8" />
@@ -78,7 +61,6 @@ export default function TelaLogin() {
             <p className="text-gray-600 text-sm">Acesse sua conta da Meredith</p>
           </div>
 
-          {/* Error Message */}
           {erro && (
             <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-xl">
               <p className="text-sm text-red-600 text-center font-medium flex items-center justify-center">
@@ -88,9 +70,7 @@ export default function TelaLogin() {
             </div>
           )}
 
-          {/* Login Form */}
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Email Field */}
             <div className="space-y-2">
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
                 E-mail
@@ -113,7 +93,6 @@ export default function TelaLogin() {
               </div>
             </div>
 
-            {/* Password Field */}
             <div className="space-y-2">
               <label htmlFor="senha" className="block text-sm font-medium text-gray-700">
                 Senha
@@ -146,19 +125,17 @@ export default function TelaLogin() {
                   )}
                 </button>
               </div>
-                <div className="text-left">
-                  <button
-                    type="button"
-                    onClick={handleResetPassword}
-                    className="text-xs text-[#0080df] hover:text-[#005694] font-medium mt-1 hover:underline underline-offset-4 transition-all duration-200 transform hover:scale-[1.03] cursor-pointer"
-                  >
-                    Esqueci minha senha!
-                  </button>
-                </div>
-
+              <div className="text-left">
+                <button
+                  type="button"
+                  onClick={() => setMostrarModalReset(true)}
+                  className="text-xs text-[#0080df] hover:text-[#005694] font-medium mt-1 hover:underline underline-offset-4 transition-all duration-200 transform hover:scale-[1.03] cursor-pointer"
+                >
+                  Esqueci minha senha!
+                </button>
+              </div>
             </div>
 
-            {/* Login Button */}
             <button
               type="submit"
               disabled={carregando}
@@ -178,7 +155,6 @@ export default function TelaLogin() {
             </button>
           </form>
 
-          {/* Footer Links */}
           <div className="mt-8 text-center space-y-4">
             <div className="text-sm text-gray-600">
               Não tem uma conta? {" "}
@@ -201,12 +177,18 @@ export default function TelaLogin() {
           </div>
         </div>
 
-        {/* Bottom Text */}
         <div className="text-center mt-6">
           <p className="text-white/80 text-sm">
             Meredith - Sua secretária virtual inteligente
           </p>
         </div>
+
+        {/* Modal de redefinição de senha */}
+        <ResetPasswordModal
+          isOpen={mostrarModalReset}
+          onClose={() => setMostrarModalReset(false)}
+          email={email}
+        />
       </div>
     </div>
   );
