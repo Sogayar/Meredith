@@ -70,7 +70,7 @@ const HeaderSection = () => {
         </a>
       ))}
 
-      <Link to="/login" className="block w-full mt-2">
+      <Link to="/dashboard" className="block w-full mt-2">
         <Button className="w-full bg-[#0080df] text-white py-2 font-poppins rounded">
           Entrar
         </Button>
