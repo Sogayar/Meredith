@@ -19,6 +19,8 @@ import {
   Area,
 } from "recharts";
 import {
+  ChevronLeft, 
+  ChevronRight,
   Calendar,
   MessageSquare,
   Users,
@@ -43,6 +45,7 @@ import {
   Globe,
   MessageCircle,
 } from "lucide-react";
+
 
 const agendamentosData = [
   { dia: "Seg", agendamentos: 4, respondidas: 3, abandonadas: 1 },
@@ -121,6 +124,7 @@ export default function Dashboard() {
   const [filtroData, setFiltroData] = useState("7dias");
   const [filtroCanal, setFiltroCanal] = useState("todos");
   const [statusIA, setStatusIA] = useState("online");
+  const [sidebarExpanded, setSidebarExpanded] = useState(true);
 
   useEffect(() => {
     document.title = "Dashboard | Meredith";
@@ -186,7 +190,7 @@ export default function Dashboard() {
         <div className="flex items-center justify-between p-6 border-b border-gray-200">
           <div className="flex items-center">
             <div className="w-10 h-10 bg-gradient-to-r from-[#0080df] to-[#005694] rounded-xl flex items-center justify-center shadow-lg">
-              <img src="/assets/logo-chat.svg" alt="Meredith" className="w-6 h-6" />
+              <img src="/assets/avatar-dra-sofia.svg" alt="Meredith" className="w-6 h-6" />
             </div>
             <span className="ml-3 text-lg font-bold text-gray-800">Meredith</span>
           </div>
@@ -196,6 +200,7 @@ export default function Dashboard() {
           >
             <X className="w-5 h-5" />
           </button>
+          
         </div>
 
         <nav className="p-4 space-y-2">
