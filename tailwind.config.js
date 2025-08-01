@@ -70,6 +70,16 @@ module.exports = {
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "float": "float 6s ease-in-out infinite",
+      },
+      keyframes: {
+        "float": {
+          "0%, 100%": { transform: "translateY(0px)" },
+          "50%": { transform: "translateY(-20px)" },
+        },
+      },
+      boxShadow: {
+        "3xl": "0 35px 60px -12px rgba(0, 0, 0, 0.25)",
       },
     },
     container: { center: true, padding: "2rem", screens: { "2xl": "1400px" } },
