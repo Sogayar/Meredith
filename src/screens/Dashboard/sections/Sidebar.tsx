@@ -7,12 +7,12 @@ import {
   XCircle,
   Activity,
 } from "lucide-react";
-import { useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface MenuItem {
   icon: React.ElementType;
   label: string;
-  active?: boolean;
+  path?: string;
 }
 
 interface SidebarProps {
@@ -30,6 +30,9 @@ export default function Sidebar({
   statusIA,
   menuItems,
 }: SidebarProps) {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "online":
@@ -90,40 +93,47 @@ export default function Sidebar({
 
       {/* Menu Items */}
       <nav className="p-2 space-y-2">
-        {menuItems.map((item, index) => (
-          <button
-            key={index}
-            className={`w-full flex items-center px-4 py-3 rounded-xl transition-all duration-200 ${
-              item.active
-                ? "bg-gradient-to-r from-[#0080df] to-[#005694] text-white shadow-lg"
-                : "text-gray-600 hover:bg-gray-100 hover:text-gray-800"
-            }`}
-          >
-            <item.icon className="w-5 h-5" />
-            {sidebarExpanded && <span className="ml-3">{item.label}</span>}
-          </button>
-        ))}
+        {menuItems.map((item, index) => {
+          const isActive = location.pathname === item.path;
+          return (
+            <button
+              key={index}
+              onClick={() => item.path && navigate(item.path)}
+              className={`w-full flex items-center px-4 py-3 rounded-xl transition-all duration-200 ${
+                isActive
+                  ? "bg-gradient-to-r from-[#0080df] to-[#005694] text-white shadow-lg"
+                  : "text-gray-600 hover:bg-gray-100 hover:text-gray-800"
+              }`}
+            >
+              <item.icon className="w-5 h-5" />
+              {sidebarExpanded && <span className="ml-3">{item.label}</span>}
+            </button>
+          );
+        })}
       </nav>
 
       {/* IA Status */}
-    <div className="absolute bottom-4 left-9">
+      <div className="absolute bottom-4 left-9">
         <div className="flex items-center space-x-2">
-            {/* Ícone de status colorido com animação */}
-            <div className={`w-3 h-3 rounded-full ${getStatusColor(statusIA)} animate-pulse`} />
+          {/* Ícone de status colorido com animação */}
+          <div
+            className={`w-3 h-3 rounded-full ${getStatusColor(
+              statusIA
+            )} animate-pulse`}
+          />
 
-                {/* Texto só aparece se a sidebar estiver expandida */}
-                {sidebarExpanded && (
-                <div className="text-sm text-gray-700 leading-tight">
-                    <p className="font-medium">Status da IA</p>
-                    <p>Operando normalmente</p>
-                    <p className="text-xs text-gray-500">
-                    Última interação: há 3 min, via WhatsApp
-                    </p>
-                </div>
-            )}
+          {/* Texto só aparece se a sidebar estiver expandida */}
+          {sidebarExpanded && (
+            <div className="text-sm text-gray-700 leading-tight">
+              <p className="font-medium">Status da IA</p>
+              <p>Operando normalmente</p>
+              <p className="text-xs text-gray-500">
+                Última interação: há 3 min, via WhatsApp
+              </p>
+            </div>
+          )}
         </div>
-    </div>
-
+      </div>
     </aside>
   );
 }
