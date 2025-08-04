@@ -9,6 +9,7 @@ import SignIn from "./screens/SignIn/SignIn";
 import NotFound from "./screens/NotFound/NotFound";
 import { AuthProvider } from "./components/security/AuthProvider";
 import { Agendamentos } from "./screens/Agendamentos";
+import { Mensagens } from "./screens/Mensagens";
 import MainLayout from "./components/layout/MainLayout";
 
 export default function App() {
@@ -26,6 +27,10 @@ export default function App() {
           <Route
             path="/agendamentos"
             element={<ProtectedRoute><MainLayout><Agendamentos /></MainLayout></ProtectedRoute>}
+          />
+          <Route
+            path="/mensagens"
+            element={<ProtectedRoute><MainLayout><Mensagens /></MainLayout></ProtectedRoute>}
           />
           <Route path="*" element={<NotFound />} /> {/* Essa joça aqui tem que ser o último ok? */}
         </Routes>

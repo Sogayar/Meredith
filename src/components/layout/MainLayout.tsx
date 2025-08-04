@@ -16,7 +16,7 @@ export default function MainLayout({ children }) {
     { icon: LayoutDashboard, label: "Dashboard", path: "/dashboard" },
     { icon: CalendarCheck, label: "Agendamentos", path: "/agendamentos" },
     { icon: Users, label: "Clientes" },
-    { icon: MessageSquare, label: "Mensagens" },
+    { icon: MessageSquare, label: "Mensagens", path: "/mensagens" },
   ];
 
   return (
