@@ -174,7 +174,7 @@ export default function SignIn() {
               id="remember-me"
               name="remember-me"
               type="checkbox"
-              className="h-4 w-4 text-[#0080df] focus:ring-[#0080df] border-gray-300 rounded"
+              className="h-4 w-4 text-[#0080df] focus:ring-[#0080df] border-gray-300 rounded border-4 border-purple-500"
               checked={manterLogado}
               onChange={(e) => setManterLogado(e.target.checked)}
             />
