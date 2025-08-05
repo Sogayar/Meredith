@@ -10,6 +10,7 @@ export default function SignIn() {
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
   const [aceitouTermos, setAceitouTermos] = useState(false);
+  const [manterLogado, setManterLogado] = useState(true); // Estado para o checkbox "Manter-me logado"
   const [erro, setErro] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -52,6 +53,9 @@ export default function SignIn() {
     const { error } = await supabase.auth.signUp({
       email: email.toLowerCase(),
       password: senha,
+      options: {
+        shouldRemember: manterLogado,
+      },
     });
 
     setLoading(false);
@@ -162,6 +166,20 @@ export default function SignIn() {
             />
             <label htmlFor="termos" className="text-gray-600">
               Eu li e aceito os <a href="#" className="text-blue-600 underline">termos de uso</a> da Meredith.
+            </label>
+          </div>
+
+          <div className="flex items-center gap-2 text-sm">
+            <input
+              id="remember-me"
+              name="remember-me"
+              type="checkbox"
+              className="h-4 w-4 text-[#0080df] focus:ring-[#0080df] border-gray-300 rounded"
+              checked={manterLogado}
+              onChange={(e) => setManterLogado(e.target.checked)}
+            />
+            <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              Manter-me logado
             </label>
           </div>
 

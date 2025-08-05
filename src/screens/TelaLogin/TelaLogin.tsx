@@ -12,6 +12,7 @@ export default function TelaLogin() {
   const [erro, setErro] = useState("");
   const [carregando, setCarregando] = useState(false);
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const [manterLogado, setManterLogado] = useState(true); // Estado para o checkbox "Manter-me logado"
   const [mostrarModalReset, setMostrarModalReset] = useState(false);
 
   const navigate = useNavigate();
@@ -25,6 +26,9 @@ export default function TelaLogin() {
     const { error } = await supabase.auth.signInWithPassword({
       email,
       password: senha,
+      options: {
+        shouldRemember: manterLogado,
+      },
     });
 
     setSenha(""); 
@@ -125,7 +129,20 @@ export default function TelaLogin() {
                   )}
                 </button>
               </div>
-              <div className="text-left">
+              <div className="text-left flex items-center justify-between">
+                <div className="flex items-center">
+                  <input
+                    id="remember-me"
+                    name="remember-me"
+                    type="checkbox"
+                    className="h-4 w-4 text-[#0080df] focus:ring-[#0080df] border-gray-300 rounded"
+                    checked={manterLogado}
+                    onChange={(e) => setManterLogado(e.target.checked)}
+                  />
+                  <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+                    Manter-me logado
+                  </label>
+                </div>
                 <button
                   type="button"
                   onClick={() => setMostrarModalReset(true)}
